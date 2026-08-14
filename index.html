@@ -1253,8 +1253,8 @@
       <div class="skill-group">
         <h3>Frontend & UI</h3>
         <ul class="skill-list">
-          <li>TypeScript / JavaScript (ES6+)</li>
-          <li>Canvas & WebGL</li>
+          <li>JavaScript (ES6+)</li>
+          <li>Canvas 2D (Spiel-Rendering)</li>
           <li>PWA & Service Workers</li>
           <li>Responsive Design</li>
         </ul>
@@ -1412,7 +1412,7 @@ const projects = [
     title: "Tower Defense Mobile Game",
     status: "active",
     description: "Ein mobiles Tower-Defense-Spiel mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
-    tech: ["TypeScript", "Cloudflare Workers", "D1 Database", "Canvas", "PWA", "Fooocus/SDXL"],
+    tech: ["JavaScript (ES6+)", "Cloudflare Workers", "D1 Database", "Canvas", "PWA", "Fooocus/SDXL"],
     badges: ["✨ Live", "⚡ Real-time", "🎮 Spielbar"],
     bilder: [
       { datei: "bilder/spiel-karte.webp", text: "Das Spielfeld mit beschworenen Helden. Jedes Sprite ist über die eigene Art-Pipeline entstanden." },
@@ -1439,7 +1439,7 @@ const projects = [
     title: "Marketplace API Tracker",
     status: "paused",
     description: "Python-Dashboard für Echtzeitüberwachung von Marktplatz-Daten mit Preis-Historisierung, Flip-Margen-Berechnung und Trading-Rechner.",
-    tech: ["Python", "Flask", "SQLite", "REST API", "Charts.js", "Real-time Data"],
+    tech: ["Python", "Flask", "SQLite", "REST API", "SVG-Sparklines", "Real-time Data"],
     badges: ["📊 Dashboard", "⚡ Real-time"],
     bilder: [
       { datei: "bilder/tracker-markt.webp", text: "Marktübersicht: 444 Items mit Sofortkauf, Sofortverkauf, Netto nach Gebühren und live berechneter Flip-Marge." },
@@ -1447,7 +1447,7 @@ const projects = [
       { datei: "bilder/tracker-journal.webp", text: "Journal: offene Positionen mit Live-P&L, gebundenes Kapital, Win-Rate und Historie abgeschlossener Trades." }
     ],
     details: {
-      what: "Lokales Dashboard mit automatischem API-Abruf (15 Min Intervall), Preishistorie mit 24h/7d/30d Charts, Live-Flip-Margin-Berechnung, Trading-Rechner mit Steuern, Watchlist und detailliertes Journal mit Win-Rate-Tracking.",
+      what: "Lokales Dashboard, das die Marktdaten alle 15 Minuten selbst abruft und jede Preisänderung mitschreibt. Daraus entstehen Vergleiche über 24 Stunden, 7 und 30 Tage, eine Bewertung nach Nähe zum 30-Tage-Tief, laufende Flip-Margen nach Gebühren, Watchlist und ein Journal mit offenen Positionen und Win-Rate. Die Kursverläufe sind als SVG-Linie selbst gezeichnet, ohne Diagramm-Bibliothek.",
       why: "Interesse an Datenanalyse und Markt-Integration. Bewusst generalisiert für beliebige APIs, nicht nur spezifisches System.",
       learnings: [
         "Echtzeit-Datenverarbeitung und Historisierung",
