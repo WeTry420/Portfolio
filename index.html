@@ -1069,7 +1069,7 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number">6</div>
+          <div class="stat-number">7</div>
           <div class="stat-label">Projekte</div>
         </div>
         <div class="stat-card">
@@ -1346,19 +1346,19 @@ const projects = [
   },
   {
     id: 3,
-    title: "Minecraft RPG Server",
+    title: "Eigene Plugins & 3D-Assets für Minecraft",
     status: "paused",
-    description: "Ein progressives RPG-Minecraft-Server-System mit Custom-Enchantments, Upgrade-System für Waffen und NPC-Integration.",
+    description: "Selbst entwickelte Server-Erweiterungen statt fertiger Plugins: eigene Enchantment-Registry, progressives Waffen-Upgrade-System, NPC-Logik und selbst modellierte 3D-Assets. Entstanden für einen eigenen RPG-Server — die Systeme funktionieren auf jedem Server.",
     tech: ["Paper 26.1.2", "Minecraft Datapacks", "Skript Plugin", "Citizens NPCs", "Blockbench"],
-    badges: ["🎮 Multiplayer", "🔧 Custom"],
+    badges: ["🔧 Eigene Plugins", "🧊 3D-Assets"],
     details: {
-      what: "Voll funktionierendes RPG-System mit Custom-Enchant-Registry, progressivem Schmied-Upgrade-System (+0 bis +9 mit skalierenden Kosten), Starter-Kit-System mit Cooldowns. 3D-Modelle selbst erstellt mit Blockbench.",
-      why: "Interesse an Minecraft-Modding und Game Design. Bewusste Vermeidung von komplexen RPG-Plugins zugunsten von Datapacks (versionsrobuster).",
+      what: "Eigene Enchantment-Registry, progressives Schmied-Upgrade-System (+0 bis +9 mit skalierenden Kosten und Fehlschlag-Wahrscheinlichkeit), Starter-Kit-System mit Cooldowns, NPC-Händler. Waffen- und Rüstungsmodelle selbst in Blockbench gebaut und als Resource-Pack eingebunden.",
+      why: "Interesse an Modding und daran, Spielsysteme selbst zu bauen statt fertige RPG-Plugins zusammenzustecken. Bewusst auf Datapacks und eigene Skripte gesetzt, weil die Minecraft-Versionswechsel überstehen.",
       learnings: [
-        "Versionsrobuste Systeme mit Datapacks bauen",
-        "Komplexität von MMO-Systemen als Einzelentwickler",
-        "3D-Modellierung mit Blockbench",
-        "NPC-Systeme mit Citizens Plugins"
+        "Eigene Spielsysteme bauen statt fertige Plugins konfigurieren",
+        "Versionsrobust arbeiten: Datapacks überleben Updates, Plugins oft nicht",
+        "3D-Modellierung und Resource-Packs von Grund auf",
+        "Der Server kam nie öffentlich raus — die Bausteine sind trotzdem übertragbar"
       ]
     }
   },
@@ -1403,19 +1403,45 @@ const projects = [
   },
   {
     id: 6,
-    title: "Krypto-Edutainment-Videos",
+    title: "Automatisierte Video-Pipeline",
     status: "paused",
-    description: "Kurzformat-Video-Content mit personifiziertem Candlestick-Charakter via kostenlose KI-Content-Pipeline.",
-    tech: ["Generative Video", "KI-Voice", "FFmpeg", "Python", "Asset Versioning"],
-    badges: ["🎬 Automation", "🎨 Generative"],
+    description: "Ein n8n-Workflow, der Kurzvideos vom Thema bis zum fertigen Post durchproduziert: Idee ziehen, Skript per KI schreiben, Material besorgen, rendern lassen, freigeben, auf allen Plattformen veröffentlichen.",
+    tech: ["n8n", "JSON2Video", "Claude API", "Pexels API", "Telegram", "REST APIs"],
+    badges: ["🔄 Automatisiert", "🔗 20 Schritte"],
+    bilder: [
+      { datei: "bilder/pipeline-teil1.webp", text: "Erste Hälfte: täglicher Start, nächste Idee aus der Datenbank ziehen und als „in Produktion“ sperren, Skript generieren lassen, B-Roll besorgen und Lizenzen protokollieren, Render-Auftrag zusammenbauen und abschicken." },
+      { datei: "bilder/pipeline-teil2.webp", text: "Zweite Hälfte: auf den Render warten, Vorschau verschicken, Freigabe abwarten — erst danach wird auf allen Plattformen gepostet und der Eintrag als erledigt markiert. Bei Ablehnung endet der Lauf." }
+    ],
     details: {
-      what: "Vollständige Content-Pipeline: Text-Skript → Bildgenerierung → Voice-Over → Video-Zusammensetzung. Personalisierter Candlestick-Character mit Animations-System. Versioniertes Content-Management.",
-      why: "Interesse an generativer Media und kostenlosen KI-Tools. Experimente mit automatisierter Content-Produktion.",
+      what: "Durchgehender Workflow mit rund 20 Schritten in n8n. Themen liegen in einer Datenbank und werden beim Start gesperrt, damit kein Thema doppelt läuft. Das Skript entsteht per KI, Bildmaterial wird über eine Stock-API geholt und die Lizenz mitprotokolliert. Der Render läuft extern, der Workflow wartet und prüft den Status in einer Schleife. Vor dem Posten geht eine Vorschau raus und es wird auf eine ausdrückliche Freigabe gewartet.",
+      why: "Interesse an Automatisierung: Wie weit kommt man, wenn man einen kompletten Produktionsablauf einmal sauber verdrahtet? Der Freigabe-Schritt ist bewusst drin — vollautomatisch veröffentlichen ohne Kontrolle war nicht das Ziel.",
       learnings: [
-        "Komplette Pipelines aufbauen mit kostenlosen Tools",
-        "Asset-Management bei KI-Content",
-        "Konsistenz über mehrere Generationen hinweg",
-        "Fokus-Shift: Game Dev liefert bessere Ergebnisse"
+        "Lange Abläufe brauchen Sperren, sonst laufen Themen doppelt",
+        "Auf externe Renderer wartet man mit Schleife und Statusabfrage, nicht mit festen Wartezeiten",
+        "Ein Freigabe-Schritt vor dem Veröffentlichen ist die Mühe wert",
+        "Lizenzen von Stock-Material gehören mitprotokolliert"
+      ]
+    }
+  },
+  {
+    id: 7,
+    title: "KI-Videos mit eigenem Stil",
+    status: "paused",
+    description: "Kurzvideos zu Finanzthemen mit einem selbst ausgedachten Look: Chart-Kerzen als lebendige Figuren. Charakterdesign, Bildsprache und Schnitt gezielt selbst gestaltet statt Vorlagen zu verwenden.",
+    tech: ["Bildgenerierung", "Charakterdesign", "FFmpeg", "KI-Voice", "Asset Versioning"],
+    badges: ["🎨 Eigener Stil", "🎬 Kurzformat"],
+    bilder: [
+      { datei: "bilder/kerze-charakter.webp", text: "Der Bullenmarkt als Figur — Charakterdesign für Videos über steigende Märkte." },
+      { datei: "bilder/kerze-hammer.webp", text: "Minimalistische Variante: Eine Hammer-Kerze am Ende eines Abwärtstrends bekommt ein Gesicht. Chart-Muster werden dadurch erzählbar, ohne dass man sie erklären muss." }
+    ],
+    details: {
+      what: "Zwei Bildsprachen für denselben Gedanken: Kerzen im Chart als Figuren mit Charakter. Einmal als ausgearbeitete Comic-Figur vor der Börsenkulisse, einmal streng geometrisch direkt im Chart. Beides selbst entworfen und über iterative Bildgenerierung umgesetzt, danach zu Kurzvideos im Hochformat geschnitten.",
+      why: "Der Unterschied zur automatischen Pipeline: Hier ging es nicht um Menge, sondern um einen eigenen Look. Generische KI-Videos sehen alle gleich aus — ein eigener Charakter macht Inhalte wiedererkennbar.",
+      learnings: [
+        "Konsistente Charaktere über mehrere Generationen hinweg hinbekommen",
+        "Ein simples Gestaltungsmittel — ein Gesicht — erklärt ein Chart-Muster schneller als Text",
+        "Handgemacht und automatisiert sind zwei verschiedene Disziplinen",
+        "Asset-Versionierung ist bei generierten Bildern Pflicht"
       ]
     }
   }
