@@ -1461,17 +1461,21 @@ const projects = [
     id: 3,
     title: "Eigene Plugins & 3D-Assets für Minecraft",
     status: "paused",
-    description: "Selbst entwickelte Server-Erweiterungen statt fertiger Plugins: eigene Enchantment-Registry, progressives Waffen-Upgrade-System, NPC-Logik und selbst modellierte 3D-Assets. Entstanden für einen eigenen RPG-Server — die Systeme funktionieren auf jedem Server.",
-    tech: ["Paper 26.1.2", "Minecraft Datapacks", "Skript Plugin", "Citizens NPCs", "Blockbench"],
-    badges: ["🔧 Eigene Plugins", "🧊 3D-Assets"],
+    description: "Ein komplettes Fähigkeiten-System selbst gebaut: eigenes Java-Plugin für die Partikeleffekte, selbst modellierte 3D-Waffe, animierte Texturen und die Spiellogik dazu. Dazu Händler-NPCs, ein Level-System und ein Upgrade-System für Waffen.",
+    tech: ["Java (eigenes Plugin)", "Paper 26.1.2", "Datapacks", "Skript", "Blockbench", "Resource Packs"],
+    badges: ["🔧 Eigenes Plugin", "🗡️ 3D-Modell", "⚡ Fähigkeiten-System"],
+    bilder: [
+      { datei: "bilder/mc-schwert.webp", text: "Die Sturmklinge mit aktiver Aura. Das Modell ist selbst gebaut: ein Katana plus zwei gekreuzte Leuchtflächen, auf denen die animierte Aura-Textur läuft." },
+      { datei: "bilder/mc-aura-texturen.webp", text: "Die Aura-Texturen, jeweils 16 Einzelbilder à 32×32 Pixel. Bewusst als Fähigkeits-Asset angelegt und nicht als Schwert-Asset — dieselbe Aura soll später auf jeder Waffe funktionieren." }
+    ],
     details: {
-      what: "Eigene Enchantment-Registry, progressives Schmied-Upgrade-System (+0 bis +9 mit skalierenden Kosten und Fehlschlag-Wahrscheinlichkeit), Starter-Kit-System mit Cooldowns, NPC-Händler. Waffen- und Rüstungsmodelle selbst in Blockbench gebaut und als Resource-Pack eingebunden.",
-      why: "Interesse an Modding und daran, Spielsysteme selbst zu bauen statt fertige RPG-Plugins zusammenzustecken. Bewusst auf Datapacks und eigene Skripte gesetzt, weil die Minecraft-Versionswechsel überstehen.",
+      what: "Die Schwertaura läuft über drei sauber getrennte Schichten: Die Spiellogik im Skript kennt Mana-Kosten, Dauer und 34 Aura-Stufen. Ein selbst geschriebenes Java-Plugin zeichnet die rotierende Partikelspirale und berechnet ihre Position aus der Blickrichtung des Spielers, damit sie an der Waffenhand klebt. Die Klingen-Optik kommt aus Datapack und Resource-Pack: Ein Item-Modifier tauscht beim Zünden das Klingenmodell und entfernt es danach wieder. Drumherum: Händler-NPCs mit Menüs, ein Level- und EXP-System, ein Schmied, der Waffen von +0 auf +9 bringt, und ein Bonus-System mit würfelbaren Eigenschaften.",
+      why: "Reiz war, Spielsysteme selbst zu bauen statt fertige RPG-Plugins zusammenzustecken. Der interessanteste Teil war nicht das Schwert, sondern die Frage, wie mehrere getrennte Systeme miteinander reden, ohne sich gegenseitig kaputtzumachen.",
       learnings: [
-        "Eigene Spielsysteme bauen statt fertige Plugins konfigurieren",
-        "Versionsrobust arbeiten: Datapacks überleben Updates, Plugins oft nicht",
-        "3D-Modellierung und Resource-Packs von Grund auf",
-        "Der Server kam nie öffentlich raus — die Bausteine sind trotzdem übertragbar"
+        "Die Skripte reden über die Item-Beschreibung miteinander: Eine Zeile wie „Bonus-Schaden: +N“ markiert ein Item als Waffe, „Verteidigung: +N%“ als Rüstung. Ein festes, dokumentiertes Format als Schnittstelle zwischen Systemen",
+        "Effekte gehören zur Fähigkeit, nicht zum Gegenstand — sonst baut man dieselbe Arbeit bei jeder neuen Waffe noch einmal",
+        "Die Grenze des eigenen Entwurfs kennen: Der Modifier setzt ein festes Modell, ein künftiges Frostschwert würde beim Zünden optisch zum Katana. Steht so in meiner eigenen Doku, samt Weg zur Lösung",
+        "Der Server kam nie öffentlich raus — Plugin, Modell und Systeme funktionieren trotzdem auf jedem Server"
       ]
     }
   },
