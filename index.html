@@ -545,6 +545,10 @@
     display: block;
     width: 100%;
     height: auto;
+    /* Hochformat-Screenshots sonst ueber 1600px hoch */
+    max-height: 70vh;
+    object-fit: contain;
+    background: var(--surface-alt);
   }
 
   .modal-galerie figcaption {
@@ -1306,6 +1310,11 @@ const projects = [
     description: "Ein mobiles Tower-Defense-Spiel mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
     tech: ["TypeScript", "Cloudflare Workers", "D1 Database", "Canvas", "PWA", "Fooocus/SDXL"],
     badges: ["✨ Live", "⚡ Real-time", "🎮 Spielbar"],
+    bilder: [
+      { datei: "bilder/spiel-karte.webp", text: "Das Spielfeld mit beschworenen Helden. Jedes Sprite ist über die eigene Art-Pipeline entstanden." },
+      { datei: "bilder/spiel-welle.webp", text: "Stufe 510 im laufenden Spiel: Wellen-Timer, Gegnerzähler und der Boss am oberen Rand. Unten Diamanten, Beschwör-Kosten und die belegten Feldplätze." },
+      { datei: "bilder/spiel-welle2.webp", text: "Eine Stufe später greift die nächste Welle an. Die Anzeige „Turm · Gott“ markiert den Gegnertyp der Stufe." }
+    ],
     details: {
       what: "Tower-Defense-System mit eigenem Game Design, Custom-Hero-Sprites über eine generative Art-Pipeline, strukturiertem JSON-Schema für Balance und einer Live-Infrastruktur mit Spieler-Authentifizierung, Cloud-Spielständen und Freunde-System.",
       why: "Interesse an Game Design und Generative Art Pipelines. Faszination darin, komplette Spielsysteme von der Idee bis zur Live-Production umzusetzen.",
