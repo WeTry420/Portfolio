@@ -805,9 +805,10 @@
 
   .modal-section li {
     color: var(--text-secondary);
-    margin-bottom: 8px;
-    padding-left: 16px;
+    margin-bottom: 10px;
+    padding-left: 26px;
     position: relative;
+    line-height: 1.7;
   }
 
   .modal-section li::before {
@@ -1394,19 +1395,19 @@ const projects = [
   },
   {
     id: 5,
-    title: "Freqtrade Trading Bot",
+    title: "Strategie-Entwicklung & Backtesting",
     status: "paused",
-    description: "Vollständig optimierter Trading-Bot mit eigener Strategie basierend auf RSI, Bollinger Bands und EMA200.",
+    description: "Eine eigene Handelsstrategie aus RSI, Bollinger Bands und EMA200 entwickelt, die Parameter systematisch optimiert und gegen echte historische Marktdaten geprüft. Der eigentliche Ertrag war die Methodik: messen statt vermuten — und erkennen, wann ein gutes Ergebnis nur Überanpassung ist.",
     tech: ["Freqtrade", "Python", "RSI/BB/EMA", "Hyperopt", "Backtesting"],
-    badges: ["📈 Backtested", "🔍 Optimized"],
+    badges: ["📊 Systematisch getestet", "🔬 Methodik"],
     details: {
-      what: "Produktionsreifer Bot mit custom-entwickelter Strategie, hyperopt-optimiert für maximale Performance auf historischen Daten. Vollständiges Backtesting gegen echte Marktdaten.",
-      why: "Vertiefung in Trading-Strategien und technische Analyse. Experimente mit minimalen Kapital.",
+      what: "Regelwerk für Ein- und Ausstiege selbst entworfen und in Code gegossen, dann die Parameter über eine automatisierte Suche durchprobiert statt sie zu raten. Bewertet wurde gegen echte historische Kursdaten mit Gebühren — nicht gegen ein Wunschszenario.",
+      why: "Die Frage dahinter war nicht „wie werde ich reich“, sondern: Halten verbreitete Indikator-Regeln einer systematischen Prüfung überhaupt stand? Die ehrliche Antwort darauf ist wertvoller als jedes Backtest-Ergebnis.",
       learnings: [
-        "Backtesting != Live-Trading Ergebnisse",
-        "Minimales Kapital begrenzt echte Learnings",
-        "Strategien-Optimierung ist komplex",
-        "Erkenntnis: Trading ohne Budget hat Grenzen"
+        "Parameter-Optimierung findet zuverlässig Einstellungen, die auf der Vergangenheit glänzen und in der Zukunft versagen — Überanpassung ist der Normalfall, nicht die Ausnahme",
+        "Ein Backtest ohne Gebühren, Slippage und Ausführungsverzögerung ist eine Erzählung, kein Test",
+        "Erst eine Bewertung auf Daten, die die Optimierung nie gesehen hat, sagt etwas aus",
+        "Dieselbe Denkweise steckt heute in der Balance-Messung meines Spiels: nicht dem Bauchgefühl glauben, sondern gegen echte Durchläufe prüfen"
       ]
     }
   },
