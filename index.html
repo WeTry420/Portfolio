@@ -3,35 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kevin — Entwickler & Systembauer</title>
+<title>Kevin — Developer & Systems Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-0: #0d0f15;
-    --bg-1: #141820;
-    --bg-2: #1a1f2e;
-    --bg-3: #242d3d;
-    --line: rgba(255, 255, 255, 0.06);
-    --gold: #d4af37;
-    --gold-bright: #e8c94d;
-    --mint: #5fc99d;
-    --cyan: #4db8d9;
-    --purple: #a78bfa;
-    --text-0: #f5f3f0;
-    --text-1: #b8bcc7;
-    --text-2: #7a8191;
-    --active: #10b981;
-    --paused: #64748b;
-    --radius: 12px;
+    --bg: #f8f9fc;
+    --bg-alt: #f3f4f9;
+    --surface: #ffffff;
+    --surface-alt: #f9fafb;
+    --primary: #2563eb;
+    --primary-light: #60a5fa;
+    --accent: #f97316;
+    --accent-light: #fb923c;
+    --purple: #a855f7;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --paused: #8b5cf6;
+    --radius: 16px;
+    --radius-lg: 24px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --bg-alt: #1e293b;
+    --surface: #1e293b;
+    --surface-alt: #334155;
+    --primary: #60a5fa;
+    --primary-light: #93c5fd;
+    --accent: #fb923c;
+    --accent-light: #fdba74;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --border: #334155;
   }
 
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    user-select: none;
   }
 
   html {
@@ -39,39 +54,52 @@
   }
 
   body {
-    background: linear-gradient(135deg, var(--bg-0) 0%, #1a1a2e 50%, var(--bg-0) 100%);
-    background-attachment: fixed;
-    color: var(--text-0);
-    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Geist', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
-  }
-
-  /* Grid overlay */
-  .grid-overlay {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background-image:
-      linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 80%);
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
     position: relative;
     z-index: 1;
   }
 
-  /* Selectable text for specific elements */
-  .about-section, .about-section p, .about-section li {
-    user-select: text;
+  /* Theme Toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 999;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="dark"] .theme-toggle {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .theme-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  .theme-toggle-icon {
+    font-size: 1.4rem;
   }
 
   /* Navigation */
@@ -79,40 +107,36 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    padding: 20px 0;
-    background: rgba(13, 15, 21, 0.8);
+    padding: 16px 0;
+    background: rgba(248, 249, 252, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 60px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 80px;
+    transition: var(--transition);
+  }
+
+  [data-theme="dark"] nav {
+    background: rgba(15, 23, 42, 0.95);
   }
 
   nav .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    background: linear-gradient(135deg, var(--gold-bright), var(--cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 0.05em;
+    justify-content: flex-end;
+    /* Platz für den fixierten Theme-Toggle oben rechts */
+    padding-right: 90px;
   }
 
   .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     list-style: none;
   }
 
   .nav-links a {
-    color: var(--text-1);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     transition: var(--transition);
     position: relative;
   }
@@ -120,20 +144,20 @@
   .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -6px;
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--gold), var(--cyan));
+    background: linear-gradient(90deg, var(--primary), var(--accent));
     transition: var(--transition);
+  }
+
+  .nav-links a:hover {
+    color: var(--primary);
   }
 
   .nav-links a:hover::after {
     width: 100%;
-  }
-
-  .nav-links a:hover {
-    color: var(--gold-bright);
   }
 
   @media(max-width: 768px) {
@@ -144,29 +168,108 @@
 
   /* Hero Section */
   .hero {
-    padding: 80px 0;
+    padding: 140px 0 100px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1), transparent);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.1), transparent);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+    z-index: 0;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(30px); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
     animation: fadeInDown 0.8s ease-out;
   }
 
   .hero h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.1;
-    background: linear-gradient(135deg, var(--text-0), var(--gold-bright));
+    margin-bottom: 28px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--purple) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    letter-spacing: -0.02em;
   }
 
   .hero p {
     font-size: 1.1rem;
-    color: var(--text-1);
+    color: var(--text-secondary);
     max-width: 700px;
-    margin: 0 auto 40px;
+    margin: 0 auto 50px;
     line-height: 1.8;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    margin: 60px 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    transition: var(--transition);
+  }
+
+  .stat-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
   }
 
   .hero-tags {
@@ -174,34 +277,48 @@
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 50px;
   }
 
   .tag {
-    padding: 8px 16px;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(249, 115, 22, 0.08));
+    border: 1px solid rgba(37, 99, 235, 0.2);
     border-radius: 100px;
-    font-size: 0.85rem;
-    color: var(--gold-bright);
-    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+  }
+
+  .tag:hover {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(249, 115, 22, 0.12));
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
   }
 
   /* About Section */
   .about-section {
-    padding: 80px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 60px;
-    animation: fadeIn 0.8s ease-out 0.2s both;
+    padding: 100px 0;
+    margin-bottom: 80px;
   }
 
-  .about-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 40px;
+  .section-header {
     text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
   }
 
   .about-content {
@@ -209,17 +326,24 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    gap: 60px;
   }
 
   .about-text p {
-    color: var(--text-1);
-    margin-bottom: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
     line-height: 1.8;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
   }
 
+  .about-text p:nth-child(1) { animation-delay: 0.2s; }
+  .about-text p:nth-child(2) { animation-delay: 0.4s; }
+
   .about-text strong {
-    color: var(--gold-bright);
+    color: var(--primary);
+    font-weight: 600;
   }
 
   .about-list {
@@ -227,24 +351,34 @@
   }
 
   .about-list li {
-    color: var(--text-1);
-    margin-bottom: 14px;
-    padding-left: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    padding-left: 24px;
     position: relative;
+    font-size: 0.95rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
   }
+
+  .about-list li:nth-child(1) { animation-delay: 0.1s; }
+  .about-list li:nth-child(2) { animation-delay: 0.2s; }
+  .about-list li:nth-child(3) { animation-delay: 0.3s; }
+  .about-list li:nth-child(4) { animation-delay: 0.4s; }
+  .about-list li:nth-child(5) { animation-delay: 0.5s; }
+  .about-list li:nth-child(6) { animation-delay: 0.6s; }
 
   .about-list li::before {
     content: '→';
     position: absolute;
     left: 0;
-    color: var(--mint);
+    color: var(--accent);
     font-weight: bold;
   }
 
   @media(max-width: 900px) {
     .about-content {
       grid-template-columns: 1fr;
-      gap: 30px;
+      gap: 40px;
     }
   }
 
@@ -258,28 +392,30 @@
   }
 
   .filter-btn {
-    padding: 10px 24px;
-    background: var(--bg-2);
-    border: 1px solid var(--line);
+    padding: 12px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 100px;
-    color: var(--text-1);
+    color: var(--text-secondary);
     cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
+    font-weight: 600;
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .filter-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold-bright);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 
   .filter-btn.active {
-    background: linear-gradient(135deg, var(--gold), var(--gold-bright));
-    color: #000;
-    border-color: var(--gold);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
   }
 
   /* Projects Grid */
@@ -287,20 +423,23 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 28px;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
   }
 
   .project-card {
-    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
     transition: var(--transition);
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
   .project-card::before {
@@ -310,47 +449,73 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--cyan), var(--purple));
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--purple));
     opacity: 0;
     transition: var(--transition);
   }
 
+  .project-card:nth-child(1) { animation-delay: 0.1s; }
+  .project-card:nth-child(2) { animation-delay: 0.2s; }
+  .project-card:nth-child(3) { animation-delay: 0.3s; }
+  .project-card:nth-child(4) { animation-delay: 0.4s; }
+  .project-card:nth-child(5) { animation-delay: 0.5s; }
+  .project-card:nth-child(6) { animation-delay: 0.6s; }
+
   .project-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+    border-color: var(--primary);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
   }
 
   .project-card:hover::before {
     opacity: 1;
   }
 
+  .project-badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .project-badge {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    background: rgba(37, 99, 235, 0.1);
+    border-radius: 4px;
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .project-badge.live {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+  }
+
   .project-status {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     width: fit-content;
-    padding: 6px 12px;
+    padding: 8px 14px;
     background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
     border-radius: 100px;
-    font-size: 0.75rem;
-    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
     margin-bottom: 16px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-weight: 600;
   }
 
   .project-status.active {
-    color: var(--active);
-    background: rgba(16, 185, 129, 0.15);
-    border-color: rgba(16, 185, 129, 0.4);
+    color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
   }
 
   .project-status.paused {
     color: var(--paused);
-    background: rgba(100, 116, 139, 0.1);
-    border-color: rgba(100, 116, 139, 0.3);
+    background: rgba(168, 85, 247, 0.1);
   }
 
   .status-dot {
@@ -370,16 +535,16 @@
   }
 
   .project-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.35rem;
+    font-weight: 700;
     margin-bottom: 12px;
-    color: var(--text-0);
+    color: var(--text-primary);
     flex-grow: 1;
+    letter-spacing: -0.01em;
   }
 
   .project-desc {
-    color: var(--text-1);
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 24px;
@@ -390,44 +555,75 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .tech-tag {
-    padding: 5px 10px;
-    background: rgba(79, 70, 229, 0.1);
-    border: 1px solid rgba(79, 70, 229, 0.3);
+    padding: 6px 12px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(249, 115, 22, 0.08));
+    border: 1px solid rgba(37, 99, 235, 0.15);
     border-radius: 6px;
     font-size: 0.75rem;
-    color: var(--cyan);
-    font-family: 'IBM Plex Mono', monospace;
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
   }
 
   .project-links {
     display: flex;
-    gap: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
+  /* Sekundär: dezenter Outline-Button */
   .project-link {
-    padding: 8px 14px;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid var(--gold);
-    color: var(--gold-bright);
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
     text-decoration: none;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-family: 'IBM Plex Mono', monospace;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-family: inherit;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
     transition: var(--transition);
     cursor: pointer;
   }
 
   .project-link:hover {
-    background: var(--gold);
-    color: #000;
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(37, 99, 235, 0.06);
   }
 
-  .hidden {
-    display: none;
+  /* Primär: eine klare Hauptaktion pro Karte */
+  .project-link.primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .project-link.primary:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  }
+
+  [data-theme="dark"] .project-link.primary {
+    color: #0f172a;
+  }
+
+  [data-theme="dark"] .project-link.primary:hover {
+    color: #0f172a;
+  }
+
+  [data-theme="dark"] .project-link:hover {
+    background: rgba(96, 165, 250, 0.1);
   }
 
   /* Modal */
@@ -435,10 +631,9 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     backdrop-filter: blur(4px);
-    animation: fadeIn 0.3s ease-out;
   }
 
   .modal-overlay.active {
@@ -448,9 +643,8 @@
   }
 
   .modal {
-    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    background: var(--surface);
+    border-radius: var(--radius-lg);
     padding: 40px;
     max-width: 600px;
     max-height: 80vh;
@@ -476,31 +670,26 @@
     right: 20px;
     background: none;
     border: none;
-    color: var(--text-1);
+    color: var(--text-secondary);
     font-size: 28px;
     cursor: pointer;
     transition: var(--transition);
   }
 
   .modal-close:hover {
-    color: var(--gold-bright);
+    color: var(--primary);
   }
 
   .modal h2 {
-    font-family: 'Cinzel', serif;
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: var(--gold-bright);
+    color: var(--text-primary);
   }
 
   .modal p {
-    color: var(--text-1);
+    color: var(--text-secondary);
     margin-bottom: 16px;
     line-height: 1.8;
-  }
-
-  .modal strong {
-    color: var(--text-0);
   }
 
   .modal-section {
@@ -508,21 +697,21 @@
   }
 
   .modal-section h3 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.9rem;
-    color: var(--mint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--primary);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 10px;
+    font-weight: 600;
   }
 
   .modal-section ul {
     list-style: none;
-    padding-left: 0;
   }
 
   .modal-section li {
-    color: var(--text-1);
+    color: var(--text-secondary);
     margin-bottom: 8px;
     padding-left: 16px;
     position: relative;
@@ -532,21 +721,22 @@
     content: '→';
     position: absolute;
     left: 0;
-    color: var(--cyan);
+    color: var(--accent);
   }
 
-  /* Toast Notification */
+  /* Toast */
   .toast {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: var(--bg-2);
-    border: 1px solid var(--line);
-    color: var(--text-1);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
     padding: 16px 24px;
     border-radius: var(--radius);
     z-index: 2000;
     animation: slideIn 0.3s ease-out;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     max-width: 300px;
   }
 
@@ -563,17 +753,11 @@
 
   /* Skills Section */
   .skills-section {
-    padding: 80px 0;
-    border-top: 1px solid var(--line);
-    margin-top: 60px;
-  }
-
-  .section-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 50px;
-    text-align: center;
+    padding: 100px 0;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(249, 115, 22, 0.05));
+    border-radius: var(--radius-lg);
+    margin: 80px 0;
+    transition: background-color 0.4s ease;
   }
 
   .skills-grid {
@@ -583,23 +767,24 @@
   }
 
   .skill-group h3 {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--gold);
+    color: var(--primary);
     margin-bottom: 20px;
+    font-weight: 600;
   }
 
   .skill-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .skill-list li {
-    color: var(--text-1);
+    color: var(--text-secondary);
     padding-left: 16px;
     position: relative;
   }
@@ -608,14 +793,55 @@
     content: '→';
     position: absolute;
     left: 0;
-    color: var(--mint);
+    color: var(--accent);
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: var(--radius-lg);
+    padding: 60px 40px;
+    text-align: center;
+    margin: 100px 0;
+    color: white;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .cta-banner h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .cta-banner p {
+    font-size: 1.05rem;
+    margin-bottom: 32px;
+    opacity: 0.95;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 14px 32px;
+    background: white;
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: var(--transition);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
 
   /* Footer */
   footer {
-    padding: 60px 0 40px;
-    border-top: 1px solid var(--line);
-    margin-top: 100px;
+    padding: 80px 0 40px;
+    margin-top: 80px;
+    border-top: 1px solid var(--border);
   }
 
   .footer-content {
@@ -623,11 +849,10 @@
   }
 
   .footer-title {
-    font-family: 'Cinzel', serif;
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--gold-bright), var(--mint));
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -638,16 +863,18 @@
     gap: 24px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 40px;
   }
 
   .footer-links a {
-    color: var(--text-1);
+    color: var(--text-secondary);
     text-decoration: none;
     transition: var(--transition);
+    font-weight: 600;
   }
 
   .footer-links a:hover {
-    color: var(--gold-bright);
+    color: var(--primary);
   }
 
   /* Animations */
@@ -662,43 +889,79 @@
     }
   }
 
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
 
-  .project-card {
-    animation: fadeIn 0.6s ease-out;
-  }
-
   @media(max-width: 768px) {
     .hero {
-      padding: 60px 0;
+      padding: 80px 0 40px;
     }
 
     .projects-container {
       grid-template-columns: 1fr;
     }
 
-    .section-title {
-      font-size: 1.8rem;
-    }
-
     .modal {
       padding: 30px;
       max-width: 90vw;
     }
+
+    .nav-links {
+      gap: 20px;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      top: 20px;
+      right: 20px;
+    }
+
+    .cta-banner {
+      padding: 40px 24px;
+    }
+
+    .cta-banner h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .about-section, .about-section p, .about-section li {
+    user-select: text;
   }
 </style>
 </head>
 <body>
 
-<div class="grid-overlay"></div>
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <span class="theme-toggle-icon">🌙</span>
+</button>
 
 <!-- Navigation -->
 <nav>
   <div class="container">
-    <div class="logo">KEVIN</div>
     <ul class="nav-links">
       <li><a href="#uber-mich">Über mich</a></li>
       <li><a href="#projekte">Projekte</a></li>
@@ -710,16 +973,32 @@
 
 <!-- Hero Section -->
 <section class="hero">
-  <div class="container">
-    <h1>Vollständige Systeme bauen<br><span style="color: var(--gold-bright);">mit KI-gestützter Entwicklung</span></h1>
-    <p>Unabhängiger Entwickler, der Prototypen in produktive Systeme verwandelt — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit.</p>
+  <div class="hero-content">
+    <div class="container">
+      <h1>Vollständige Systeme bauen<br>mit KI-gestützter Entwicklung</h1>
+      <p>Developer & Systems Builder — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit und schnelle Iterationen.</p>
 
-    <div class="hero-tags">
-      <span class="tag">Fullstack Development</span>
-      <span class="tag">Game Design & Art</span>
-      <span class="tag">VPS-Administration</span>
-      <span class="tag">KI-Workflows</span>
-      <span class="tag">System-Architektur</span>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Projekte</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Live</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">8-12h</div>
+          <div class="stat-label">Täglich</div>
+        </div>
+      </div>
+
+      <div class="hero-tags">
+        <span class="tag">Fullstack Development</span>
+        <span class="tag">Game Design</span>
+        <span class="tag">Cloud Architecture</span>
+        <span class="tag">AI Workflows</span>
+      </div>
     </div>
   </div>
 </section>
@@ -727,24 +1006,27 @@
 <!-- About Section -->
 <section id="uber-mich" class="about-section">
   <div class="container">
-    <h2 class="about-title">Über mich</h2>
+    <div class="section-header">
+      <h2>Über mich</h2>
+      <p>Wer ich bin und wie ich arbeite</p>
+    </div>
 
     <div class="about-content">
       <div class="about-text">
         <p>
-          Ich baue komplette Systeme mit KI — ohne klassischen Coding-Background. Seit 5 Monaten arbeite ich strukturiert mit Claude: von der Idee über iteratives Testen bis zur Live-Production. Meine Spezialität: minimale Ressourcen (nur Claude Abo), maximale Qualität.
+          Ich baue funktionsfähige Systeme schnell mit KI: Games, APIs, Trading-Bots, Backend-Infrastruktur. Kann mehrere Projekte parallel managen, wähle aber bewusst Fokus statt alles zu verteilen.
         </p>
         <p>
-          Mein Ansatz: strukturierte KI-Zusammenarbeit, iteratives Testen, präzises Debugging statt Trial-and-Error. Ich bringe Projekte vom Konzept bis zur Live-Production. Derzeit arbeite ich <strong>8-12 Stunden täglich</strong> an neuen Systemen und Ideen.
+          Aktuell: Tower Defense als Hauptprojekt. Andere Systeme (Marketplace Tracker, Trading-Bots) laufen, sind aber pausiert. Spezialisierung: strukturierte KI-Zusammenarbeit, iteratives Testen, präzises Debugging statt Trial-and-Error. Derzeit arbeite ich <strong>8-12 Stunden täglich</strong> an Systemen.
         </p>
       </div>
 
       <div>
         <p><strong>Was ich mache:</strong></p>
         <ul class="about-list">
-          <li>Game Development — Spielmechaniken, Asset-Pipelines, 3D-Modellierung (Blockbench)</li>
-          <li>Tools & Dashboards — Echtzeit-Datenverarbeitung, API-Integration, Finanz-Dashboards</li>
-          <li>Backend & Infrastruktur — VPS-Administration, Cloud-Deployment (Cloudflare Workers, D1), Datenbanken</li>
+          <li>Game Development — Spielmechaniken, Asset-Pipelines, 3D-Modellierung</li>
+          <li>Tools & Dashboards — Echtzeit-Datenverarbeitung, API-Integration</li>
+          <li>Backend & Infrastruktur — Cloud-Deployment, Datenbanken, VPS-Administration</li>
         </ul>
 
         <p style="margin-top: 24px;"><strong>Was ich suche:</strong></p>
@@ -760,7 +1042,10 @@
 
 <!-- Projects Section -->
 <section id="projekte" class="container">
-  <h2 class="section-title" style="margin-bottom: 40px;">Projektportfolio</h2>
+  <div class="section-header">
+    <h2>Projektportfolio</h2>
+    <p>Funktionsfähige Systeme von der Idee bis zur Live-Produktion</p>
+  </div>
 
   <div class="filter-section">
     <button class="filter-btn active" data-filter="all">Alle</button>
@@ -768,8 +1053,15 @@
     <button class="filter-btn" data-filter="paused">Pausiert</button>
   </div>
 
-  <div class="projects-container" id="projectsGrid">
-    <!-- Wird mit JavaScript gefüllt -->
+  <div class="projects-container" id="projectsGrid"></div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner" id="cta-section">
+  <div class="container">
+    <h2>Interessiert an Zusammenarbeit?</h2>
+    <p>Ich liebe es, an spannenden Projekten zu arbeiten. Lass uns über deine Idee sprechen.</p>
+    <a href="mailto:kevin.bauer10@outlook.de" class="cta-button">📧 Jetzt Kontakt aufnehmen</a>
   </div>
 </section>
 
@@ -784,7 +1076,10 @@
 <!-- Skills Section -->
 <section id="skills" class="skills-section">
   <div class="container">
-    <h2 class="section-title">Werkzeuge & Spezialisierungen</h2>
+    <div class="section-header">
+      <h2>Werkzeuge & Spezialisierungen</h2>
+      <p>Technologien und Fähigkeiten</p>
+    </div>
 
     <div class="skills-grid">
       <div class="skill-group">
@@ -792,9 +1087,8 @@
         <ul class="skill-list">
           <li>TypeScript / JavaScript (ES6+)</li>
           <li>Canvas & WebGL</li>
-          <li>Responsive Design</li>
           <li>PWA & Service Workers</li>
-          <li>DOM Manipulation</li>
+          <li>Responsive Design</li>
         </ul>
       </div>
 
@@ -805,7 +1099,6 @@
           <li>Node.js / Express</li>
           <li>Python (Flask, Scripts)</li>
           <li>SQLite / D1 Databases</li>
-          <li>VPS-Administration (Linux)</li>
         </ul>
       </div>
 
@@ -815,8 +1108,7 @@
           <li>Game Design & Balancing</li>
           <li>Generative Art Pipelines</li>
           <li>Asset Management</li>
-          <li>Minecraft Datapacks</li>
-          <li>Blockbench (3D-Modellierung)</li>
+          <li>Blockbench (3D)</li>
         </ul>
       </div>
 
@@ -824,10 +1116,9 @@
         <h3>KI-Tools & Workflows</h3>
         <ul class="skill-list">
           <li>Claude (Projekt-Entwicklung)</li>
-          <li>Fooocus / SDXL (Bildgenerierung)</li>
+          <li>Fooocus / SDXL</li>
           <li>Strukturierte Kontext-Verwaltung</li>
-          <li>Iterative Messungen & Testing</li>
-          <li>Generative Audio & Video</li>
+          <li>Iterative Testing</li>
         </ul>
       </div>
 
@@ -836,7 +1127,6 @@
         <ul class="skill-list">
           <li>Marktdaten-Integration</li>
           <li>Echtzeit-API-Abfragen</li>
-          <li>Backtesting & Optimierung</li>
           <li>Finanz-Dashboards</li>
           <li>Python Data Processing</li>
         </ul>
@@ -846,7 +1136,6 @@
         <h3>Arbeitsweise</h3>
         <ul class="skill-list">
           <li>Kontext-getriebene Struktur</li>
-          <li>Dokumentierte Handoffs</li>
           <li>Agile Iteration</li>
           <li>Security Review vor Production</li>
           <li>Messung statt Intuition</li>
@@ -861,29 +1150,56 @@
   <div class="container">
     <div class="footer-content">
       <h2 class="footer-title">Lass uns zusammenarbeiten</h2>
-      <p style="color: var(--text-1); margin-bottom: 30px; font-size: 1rem;">
-        Offen für Remote-Projekte, Collaboration und interessante Challenges im KI- & Game-Dev-Bereich
+      <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1rem;">
+        Offen für Remote-Projekte, Collaboration und interessante Challenges
       </p>
       <div class="footer-links">
         <a href="mailto:kevin.bauer10@outlook.de">📧 Email</a>
         <a href="https://github.com/WeTry420" target="_blank">GitHub</a>
         <a href="https://random-summon-defense.kkevin10.workers.dev" target="_blank">🎮 Tower Defense Live</a>
       </div>
-      <p style="color: var(--text-2); font-size: 0.85rem; margin-top: 40px;">
-        Portfolio aktualisiert · Tower Defense Game ist live
+      <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-top: 40px;">
+        Portfolio · Tower Defense Game ist live auf Cloudflare Workers
       </p>
     </div>
   </div>
-</section>
+</footer>
 
 <script>
-// Kopiererschutz - Rechtsklick blockieren
+// Theme Toggle
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+// localStorage kann blockiert sein (Privatmodus, file://) — darf den Rest nicht mitreissen
+function readTheme() {
+  try { return localStorage.getItem('theme'); } catch (e) { return null; }
+}
+function saveTheme(value) {
+  try { localStorage.setItem('theme', value); } catch (e) { /* ignorieren */ }
+}
+
+const currentTheme = readTheme() || (prefersDark ? 'dark' : 'light');
+html.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+  const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', newTheme);
+  saveTheme(newTheme);
+  updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+  themeToggle.querySelector('.theme-toggle-icon').textContent = theme === 'light' ? '🌙' : '☀️';
+}
+
+// Right Click Protection
 document.addEventListener('contextmenu', (e) => {
   e.preventDefault();
   showToast('Inspieren erwünscht! Bei Interesse an Details: kevin.bauer10@outlook.de');
 });
 
-// Toast Notification
 function showToast(message) {
   const toast = document.createElement('div');
   toast.className = 'toast';
@@ -892,14 +1208,15 @@ function showToast(message) {
   setTimeout(() => toast.remove(), 3000);
 }
 
-// Projekt-Daten mit Details
+// Projects Data
 const projects = [
   {
     id: 1,
     title: "Tower Defense Mobile Game",
     status: "active",
-    description: "Ein mobiles Tower-Defense-Spiel im Stil von Lucky Defense mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
+    description: "Ein mobiles Tower-Defense-Spiel mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
     tech: ["TypeScript", "Cloudflare Workers", "D1 Database", "Canvas", "PWA", "Fooocus/SDXL"],
+    badges: ["✨ Live", "⚡ Real-time", "🎮 Spielbar"],
     details: {
       what: "Tower-Defense-System mit eigenem Game Design, Custom-Hero-Sprites über eine generative Art-Pipeline, strukturiertem JSON-Schema für Balance und einer Live-Infrastruktur mit Spieler-Authentifizierung, Cloud-Spielständen und Freunde-System.",
       why: "Interesse an Game Design und Generative Art Pipelines. Faszination darin, komplette Spielsysteme von der Idee bis zur Live-Production umzusetzen.",
@@ -911,7 +1228,7 @@ const projects = [
       ]
     },
     links: [
-      { label: "🎮 Live spielen", url: "https://random-summon-defense.kkevin10.workers.dev" },
+      { label: "Live spielen", url: "https://random-summon-defense.kkevin10.workers.dev" },
       { label: "GitHub", url: "https://github.com/WeTry420/random-summon-defense" }
     ]
   },
@@ -919,8 +1236,9 @@ const projects = [
     id: 2,
     title: "Marketplace API Tracker",
     status: "paused",
-    description: "Python-Dashboard für Echtzeitüberwachung von Marktplatz-Daten mit Preis-Historisierung, Flip-Margen-Berechnung und Trading-Rechner. Funktioniert mit beliebigen Servern, die eine JSON-API zur Verfügung stellen.",
+    description: "Python-Dashboard für Echtzeitüberwachung von Marktplatz-Daten mit Preis-Historisierung, Flip-Margen-Berechnung und Trading-Rechner.",
     tech: ["Python", "Flask", "SQLite", "REST API", "Charts.js", "Real-time Data"],
+    badges: ["📊 Dashboard", "⚡ Real-time"],
     details: {
       what: "Lokales Dashboard mit automatischem API-Abruf (15 Min Intervall), Preishistorie mit 24h/7d/30d Charts, Live-Flip-Margin-Berechnung, Trading-Rechner mit Steuern, Watchlist und detailliertes Journal mit Win-Rate-Tracking.",
       why: "Interesse an Datenanalyse und Markt-Integration. Bewusst generalisiert für beliebige APIs, nicht nur spezifisches System.",
@@ -936,8 +1254,9 @@ const projects = [
     id: 3,
     title: "Minecraft RPG Server",
     status: "paused",
-    description: "Ein progressives RPG-Minecraft-Server-System mit Custom-Enchantments, einem Upgrade-System für Waffen, Schmied-NPCs und Starter-Kits. Nutzt Datapacks, Skript-Plugins und Citizens NPCs für versionsstabile Implementierung.",
+    description: "Ein progressives RPG-Minecraft-Server-System mit Custom-Enchantments, Upgrade-System für Waffen und NPC-Integration.",
     tech: ["Paper 26.1.2", "Minecraft Datapacks", "Skript Plugin", "Citizens NPCs", "Blockbench"],
+    badges: ["🎮 Multiplayer", "🔧 Custom"],
     details: {
       what: "Voll funktionierendes RPG-System mit Custom-Enchant-Registry, progressivem Schmied-Upgrade-System (+0 bis +9 mit skalierenden Kosten), Starter-Kit-System mit Cooldowns. 3D-Modelle selbst erstellt mit Blockbench.",
       why: "Interesse an Minecraft-Modding und Game Design. Bewusste Vermeidung von komplexen RPG-Plugins zugunsten von Datapacks (versionsrobuster).",
@@ -953,16 +1272,17 @@ const projects = [
     id: 4,
     title: "KI-Trading Agent",
     status: "paused",
-    description: "Autonomes System zur Krypto-Trading-Orchestrierung mit VPS-Deployment. Automatische Überwachung der Marktdaten mit 2-Stunden-Intervall und Watchdog-System mit Notfall-Wakeup bei kritischen Kursbewegungen.",
+    description: "Autonomes System zur Krypto-Trading-Orchestrierung mit VPS-Deployment und Watchdog-System für kritische Kursbewegungen.",
     tech: ["Python", "Binance API", "VPS", "systemd", "nginx", "Watchdog System"],
+    badges: ["🤖 Autonomous", "⚙️ Infrastructure"],
     details: {
-      what: "Vollständig produktiv betriebenes System auf eigenem VPS. Orchestrator mit Takt-Intervallen, Watchdog mit automatischem Emergency-Wake bei ±8% Kursbewegung, Verbindung zu realen Marktdaten, sicheres Dashboard mit nginx + Basic Auth.",
+      what: "Vollständig produktiv betriebenes System auf eigenem VPS. Orchestrator mit Takt-Intervallen, Watchdog mit automatischem Emergency-Wake bei ±8% Kursbewegung, Verbindung zu realen Marktdaten.",
       why: "Persönliches Interesse an Krypto-Trading und Automation. Experimente mit minimalen Ressourcen.",
       learnings: [
         "Ohne paid APIs und Kapital = begrenzte Kante gegen große Institutionen",
         "Für echte Trading-Tools sind Daten-APIs mit Budget nötig",
         "VPS-Administration und automatisierte Systeme",
-        "Pivot zu Game Dev mehr spaß und bessere Ergebnisse"
+        "Pivot zu Game Dev liefert bessere Ergebnisse"
       ]
     }
   },
@@ -970,8 +1290,9 @@ const projects = [
     id: 5,
     title: "Freqtrade Trading Bot",
     status: "paused",
-    description: "Vollständig optimierter Trading-Bot mit eigener Strategie basierend auf RSI, Bollinger Bands und EMA200. Hyperopt-optimiert und gegen echte historische Marktdaten getestet.",
+    description: "Vollständig optimierter Trading-Bot mit eigener Strategie basierend auf RSI, Bollinger Bands und EMA200.",
     tech: ["Freqtrade", "Python", "RSI/BB/EMA", "Hyperopt", "Backtesting"],
+    badges: ["📈 Backtested", "🔍 Optimized"],
     details: {
       what: "Produktionsreifer Bot mit custom-entwickelter Strategie, hyperopt-optimiert für maximale Performance auf historischen Daten. Vollständiges Backtesting gegen echte Marktdaten.",
       why: "Vertiefung in Trading-Strategien und technische Analyse. Experimente mit minimalen Kapital.",
@@ -987,8 +1308,9 @@ const projects = [
     id: 6,
     title: "Krypto-Edutainment-Videos",
     status: "paused",
-    description: "Kurzformat-Video-Content mit personifiziertem Candlestick-Charakter. Produziert über eine vollständig kostenlose KI-Content-Pipeline mit automatischer Bildgenerierung, Voice-Over und Video-Verarbeitung.",
+    description: "Kurzformat-Video-Content mit personifiziertem Candlestick-Charakter via kostenlose KI-Content-Pipeline.",
     tech: ["Generative Video", "KI-Voice", "FFmpeg", "Python", "Asset Versioning"],
+    badges: ["🎬 Automation", "🎨 Generative"],
     details: {
       what: "Vollständige Content-Pipeline: Text-Skript → Bildgenerierung → Voice-Over → Video-Zusammensetzung. Personalisierter Candlestick-Character mit Animations-System. Versioniertes Content-Management.",
       why: "Interesse an generativer Media und kostenlosen KI-Tools. Experimente mit automatisierter Content-Produktion.",
@@ -1016,20 +1338,29 @@ function renderProjects(filter = 'all') {
     ? projects
     : projects.filter(p => p.status === filter);
 
-  filtered.forEach((project, index) => {
+  filtered.forEach((project) => {
     const card = document.createElement('div');
     card.className = `project-card`;
-    card.style.animationDelay = `${index * 0.1}s`;
 
     const statusClass = project.status === 'active' ? 'active' : 'paused';
     const statusText = project.status === 'active' ? '● AKTIV' : '⊘ PAUSIERT';
     const pulseClass = project.status === 'active' ? 'pulse' : '';
 
-    const linksHTML = project.links
-      ? project.links.map(link => `<a href="${link.url}" target="_blank" class="project-link">${link.label}</a>`).join('')
+    // Hauptaktion hervorheben: erster Link, sonst der Details-Button
+    const hasLinks = Boolean(project.links && project.links.length);
+
+    const linksHTML = hasLinks
+      ? project.links.map((link, i) =>
+          `<a href="${link.url}" target="_blank" rel="noopener" class="project-link${i === 0 ? ' primary' : ''}">${link.label}</a>`
+        ).join('')
+      : '';
+
+    const badgesHTML = project.badges
+      ? project.badges.map(badge => `<span class="project-badge">${badge}</span>`).join('')
       : '';
 
     card.innerHTML = `
+      <div class="project-badges">${badgesHTML}</div>
       <div class="project-status ${statusClass}">
         <span class="status-dot ${pulseClass}"></span>
         ${statusText}
@@ -1040,8 +1371,8 @@ function renderProjects(filter = 'all') {
         ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
       </div>
       <div class="project-links">
-        <button class="project-link" onclick="openModal(${project.id})">📖 Details</button>
         ${linksHTML}
+        <button class="project-link${hasLinks ? '' : ' primary'}" onclick="openModal(${project.id})">Details</button>
       </div>
     `;
 
@@ -1125,10 +1456,8 @@ filterBtns.forEach(btn => {
   });
 });
 
-// Initial render
 renderProjects();
 
-// Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
