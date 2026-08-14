@@ -461,6 +461,8 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
+    /* Ohne min-width:0 zwingt die native Bildbreite die Grid-Spalte auseinander */
+    min-width: 0;
   }
 
   .project-card::before {
@@ -490,6 +492,72 @@
 
   .project-card:hover::before {
     opacity: 1;
+  }
+
+  /* Vorschaubild auf der Karte, randlos bis an die Kartenkante */
+  .card-bild {
+    margin: -36px -36px 22px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-alt);
+    overflow: hidden;
+  }
+
+  .card-bild img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-card:hover .card-bild img {
+    transform: scale(1.04);
+  }
+
+  /* Bildergalerie im Detail-Fenster */
+  .modal-galerie {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .modal-galerie figure {
+    margin: 0;
+  }
+
+  .modal-galerie a {
+    display: block;
+    cursor: zoom-in;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: var(--transition);
+  }
+
+  .modal-galerie a:hover {
+    border-color: var(--primary);
+  }
+
+  .modal-galerie img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-galerie figcaption {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+
+  .galerie-hinweis {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-bottom: 14px;
   }
 
   .project-badges {
@@ -667,7 +735,7 @@
     background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 40px;
-    max-width: 600px;
+    max-width: 880px;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
@@ -1260,6 +1328,11 @@ const projects = [
     description: "Python-Dashboard für Echtzeitüberwachung von Marktplatz-Daten mit Preis-Historisierung, Flip-Margen-Berechnung und Trading-Rechner.",
     tech: ["Python", "Flask", "SQLite", "REST API", "Charts.js", "Real-time Data"],
     badges: ["📊 Dashboard", "⚡ Real-time"],
+    bilder: [
+      { datei: "bilder/tracker-markt.webp", text: "Marktübersicht: 444 Items mit Sofortkauf, Sofortverkauf, Netto nach Gebühren und live berechneter Flip-Marge." },
+      { datei: "bilder/tracker-chancen.webp", text: "Chancen-Ansicht: Gesamt-Score aus Marge, Volumen, Nähe zum 30-Tage-Tief und Volumen-Spikes — mit Badges, die begründen, warum ein Item auf der Liste steht." },
+      { datei: "bilder/tracker-journal.webp", text: "Journal: offene Positionen mit Live-P&L, gebundenes Kapital, Win-Rate und Historie abgeschlossener Trades." }
+    ],
     details: {
       what: "Lokales Dashboard mit automatischem API-Abruf (15 Min Intervall), Preishistorie mit 24h/7d/30d Charts, Live-Flip-Margin-Berechnung, Trading-Rechner mit Steuern, Watchlist und detailliertes Journal mit Win-Rate-Tracking.",
       why: "Interesse an Datenanalyse und Markt-Integration. Bewusst generalisiert für beliebige APIs, nicht nur spezifisches System.",
@@ -1296,6 +1369,9 @@ const projects = [
     description: "Autonomes System zur Krypto-Trading-Orchestrierung mit VPS-Deployment und Watchdog-System für kritische Kursbewegungen.",
     tech: ["Python", "Binance API", "VPS", "systemd", "nginx", "Watchdog System"],
     badges: ["🤖 Autonomous", "⚙️ Infrastructure"],
+    bilder: [
+      { datei: "bilder/trading-dashboard.webp", text: "Dashboard des laufenden Systems auf dem VPS: KI-Marktanalyse, Bot-Vergleich zweier Strategien mit getrennten Kennzahlen, Auto-Regime-Erkennung und Walk-Forward-Ergebnissen." }
+    ],
     details: {
       what: "Vollständig produktiv betriebenes System auf eigenem VPS. Orchestrator mit Takt-Intervallen, Watchdog mit automatischem Emergency-Wake bei ±8% Kursbewegung, Verbindung zu realen Marktdaten.",
       why: "Persönliches Interesse an Krypto-Trading und Automation. Experimente mit minimalen Ressourcen.",
@@ -1380,7 +1456,13 @@ function renderProjects(filter = 'all') {
       ? project.badges.map(badge => `<span class="project-badge">${badge}</span>`).join('')
       : '';
 
+    // Erstes Bild als Vorschau auf der Karte
+    const bildHTML = project.bilder && project.bilder.length
+      ? `<div class="card-bild"><img src="${project.bilder[0].datei}" alt="${project.title}" loading="lazy" width="1280" height="800"></div>`
+      : '';
+
     card.innerHTML = `
+      ${bildHTML}
       <div class="project-badges">${badgesHTML}</div>
       <div class="project-status ${statusClass}">
         <span class="status-dot ${pulseClass}"></span>
@@ -1416,6 +1498,23 @@ function openModal(projectId) {
       </span>
     </div>
     <h2>${project.title}</h2>
+
+    ${project.bilder && project.bilder.length ? `
+      <div class="modal-section">
+        <h3>Einblicke</h3>
+        <p class="galerie-hinweis">Klick auf ein Bild öffnet es in voller Grösse.</p>
+        <div class="modal-galerie">
+          ${project.bilder.map(b => `
+            <figure>
+              <a href="${b.datei}" target="_blank" rel="noopener">
+                <img src="${b.datei}" alt="${b.text}" loading="lazy">
+              </a>
+              <figcaption>${b.text}</figcaption>
+            </figure>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
 
     <div class="modal-section">
       <h3>Übersicht</h3>
