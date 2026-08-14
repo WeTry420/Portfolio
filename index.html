@@ -1148,7 +1148,7 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number">7</div>
+          <div class="stat-number">6</div>
           <div class="stat-label">Projekte</div>
         </div>
         <div class="stat-card">
@@ -1481,39 +1481,21 @@ const projects = [
   },
   {
     id: 4,
-    title: "KI-Trading Agent",
+    title: "Trading-Systeme & Strategie-Backtesting",
     status: "paused",
-    description: "Autonomes System zur Krypto-Trading-Orchestrierung mit VPS-Deployment und Watchdog-System für kritische Kursbewegungen.",
-    tech: ["Python", "Binance API", "VPS", "systemd", "nginx", "Watchdog System"],
-    badges: ["🤖 Autonomous", "⚙️ Infrastructure"],
+    description: "Zwei Anläufe: eigene Strategien auf einem bestehenden Bot-Framework entwickelt und systematisch gegen historische Daten geprüft — und ein selbst gebautes System auf eigenem Server, mit Dashboard, Marktanalyse und Watchdog. Der bleibende Ertrag ist die Methodik, nicht die Rendite.",
+    tech: ["Python", "Binance API", "Freqtrade", "Hyperopt", "VPS", "systemd", "nginx"],
+    badges: ["⚙️ Eigene Infrastruktur", "📊 Systematisch getestet", "🔬 Methodik"],
     bilder: [
-      { datei: "bilder/trading-dashboard.webp", text: "Dashboard des laufenden Systems auf dem VPS: KI-Marktanalyse, Bot-Vergleich zweier Strategien mit getrennten Kennzahlen, Auto-Regime-Erkennung und Walk-Forward-Ergebnissen." }
+      { datei: "bilder/trading-dashboard.webp", text: "Dashboard des selbst gebauten Systems auf dem eigenen Server: Marktanalyse, zwei Strategien im direkten Vergleich mit getrennten Kennzahlen, automatische Regime-Erkennung und die Ergebnisse der Walk-Forward-Prüfung." }
     ],
     details: {
-      what: "Vollständig produktiv betriebenes System auf eigenem VPS. Orchestrator mit Takt-Intervallen, Watchdog mit automatischem Emergency-Wake bei ±8% Kursbewegung, Verbindung zu realen Marktdaten.",
-      why: "Persönliches Interesse an Krypto-Trading und Automation. Experimente mit minimalen Ressourcen.",
-      learnings: [
-        "Ohne paid APIs und Kapital = begrenzte Kante gegen große Institutionen",
-        "Für echte Trading-Tools sind Daten-APIs mit Budget nötig",
-        "VPS-Administration und automatisierte Systeme",
-        "Pivot zu Game Dev liefert bessere Ergebnisse"
-      ]
-    }
-  },
-  {
-    id: 5,
-    title: "Strategie-Entwicklung & Backtesting",
-    status: "paused",
-    description: "Eine eigene Handelsstrategie aus RSI, Bollinger Bands und EMA200 entwickelt, die Parameter systematisch optimiert und gegen echte historische Marktdaten geprüft. Der eigentliche Ertrag war die Methodik: messen statt vermuten — und erkennen, wann ein gutes Ergebnis nur Überanpassung ist.",
-    tech: ["Freqtrade", "Python", "RSI/BB/EMA", "Hyperopt", "Backtesting"],
-    badges: ["📊 Systematisch getestet", "🔬 Methodik"],
-    details: {
-      what: "Regelwerk für Ein- und Ausstiege selbst entworfen und in Code gegossen, dann die Parameter über eine automatisierte Suche durchprobiert statt sie zu raten. Bewertet wurde gegen echte historische Kursdaten mit Gebühren — nicht gegen ein Wunschszenario.",
-      why: "Die Frage dahinter war nicht „wie werde ich reich“, sondern: Halten verbreitete Indikator-Regeln einer systematischen Prüfung überhaupt stand? Die ehrliche Antwort darauf ist wertvoller als jedes Backtest-Ergebnis.",
+      what: "Auf der Strategie-Seite: Regelwerke für Ein- und Ausstiege selbst entworfen (RSI, Bollinger Bands, EMA200), die Parameter über eine automatisierte Suche durchprobiert statt sie zu raten, und gegen echte historische Kursdaten mit Gebühren bewertet. Auf der Betriebs-Seite: ein eigenes System auf gemietetem Server, das im Takt läuft, zwei Strategien parallel vergleicht und über einen Watchdog bei starken Kursbewegungen sofort aufwacht — dazu ein abgesichertes Dashboard.",
+      why: "Die Frage dahinter war nicht „wie werde ich reich“, sondern ob verbreitete Indikator-Regeln einer systematischen Prüfung standhalten und wie man so ein System überhaupt zuverlässig betreibt. Die ehrliche Antwort auf beides ist mehr wert als jedes Backtest-Ergebnis.",
       learnings: [
         "Parameter-Optimierung findet zuverlässig Einstellungen, die auf der Vergangenheit glänzen und in der Zukunft versagen — Überanpassung ist der Normalfall, nicht die Ausnahme",
-        "Ein Backtest ohne Gebühren, Slippage und Ausführungsverzögerung ist eine Erzählung, kein Test",
-        "Erst eine Bewertung auf Daten, die die Optimierung nie gesehen hat, sagt etwas aus",
+        "Ein Backtest ohne Gebühren, Slippage und Ausführungsverzögerung ist eine Erzählung, kein Test. Aussagekraft entsteht erst auf Daten, die die Optimierung nie gesehen hat",
+        "Ohne Kapital und bezahlte Datenquellen bleibt der Vorsprung gegenüber großen Häusern gering — deshalb bewusst abgebrochen statt weiter Zeit hineinzustecken",
         "Dieselbe Denkweise steckt heute in der Balance-Messung meines Spiels: nicht dem Bauchgefühl glauben, sondern gegen echte Durchläufe prüfen"
       ]
     }
