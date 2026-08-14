@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin — Entwickler & Systembauer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0: #0d0f15;
+    --bg-1: #141820;
+    --bg-2: #1a1f2e;
+    --bg-3: #242d3d;
+    --line: rgba(255, 255, 255, 0.06);
+    --gold: #d4af37;
+    --gold-bright: #e8c94d;
+    --mint: #5fc99d;
+    --cyan: #4db8d9;
+    --purple: #a78bfa;
+    --text-0: #f5f3f0;
+    --text-1: #b8bcc7;
+    --text-2: #7a8191;
+    --active: #10b981;
+    --paused: #64748b;
+    --radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--bg-0) 0%, #1a1a2e 50%, var(--bg-0) 100%);
+    background-attachment: fixed;
+    color: var(--text-0);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Grid overlay */
+  .grid-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 80%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Selectable text for specific elements */
+  .about-section, .about-section p, .about-section li {
+    user-select: text;
+  }
+
+  /* Navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 20px 0;
+    background: rgba(13, 15, 21, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 60px;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, var(--gold-bright), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-1);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--cyan));
+    transition: var(--transition);
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  .nav-links a:hover {
+    color: var(--gold-bright);
+  }
+
+  @media(max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 80px 0;
+    text-align: center;
+    animation: fadeInDown 0.8s ease-out;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--text-0), var(--gold-bright));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--text-1);
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+
+  .tag {
+    padding: 8px 16px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    color: var(--gold-bright);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* About Section */
+  .about-section {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 60px;
+    animation: fadeIn 0.8s ease-out 0.2s both;
+  }
+
+  .about-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+
+  .about-text p {
+    color: var(--text-1);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+
+  .about-text strong {
+    color: var(--gold-bright);
+  }
+
+  .about-list {
+    list-style: none;
+  }
+
+  .about-list li {
+    color: var(--text-1);
+    margin-bottom: 14px;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .about-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--mint);
+    font-weight: bold;
+  }
+
+  @media(max-width: 900px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  /* Filter Buttons */
+  .filter-section {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 10px 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--text-1);
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-bright);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+    color: #000;
+    border-color: var(--gold);
+  }
+
+  /* Projects Grid */
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 28px;
+    margin-bottom: 100px;
+  }
+
+  .project-card {
+    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--cyan), var(--purple));
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .project-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+  }
+
+  .project-card:hover::before {
+    opacity: 1;
+  }
+
+  .project-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    padding: 6px 12px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-status.active {
+    color: var(--active);
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+
+  .project-status.paused {
+    color: var(--paused);
+    background: rgba(100, 116, 139, 0.1);
+    border-color: rgba(100, 116, 139, 0.3);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .status-dot.pulse {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .project-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-0);
+    flex-grow: 1;
+  }
+
+  .project-desc {
+    color: var(--text-1);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tech-tag {
+    padding: 5px 10px;
+    background: rgba(79, 70, 229, 0.1);
+    border: 1px solid rgba(79, 70, 229, 0.3);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .project-link {
+    padding: 8px 14px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold-bright);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+
+  .project-link:hover {
+    background: var(--gold);
+    color: #000;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 40px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.4s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-1);
+    font-size: 28px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .modal-close:hover {
+    color: var(--gold-bright);
+  }
+
+  .modal h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--gold-bright);
+  }
+
+  .modal p {
+    color: var(--text-1);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+
+  .modal strong {
+    color: var(--text-0);
+  }
+
+  .modal-section {
+    margin-bottom: 24px;
+  }
+
+  .modal-section h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--mint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .modal-section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .modal-section li {
+    color: var(--text-1);
+    margin-bottom: 8px;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .modal-section li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+  }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--text-1);
+    padding: 16px 24px;
+    border-radius: var(--radius);
+    z-index: 2000;
+    animation: slideIn 0.3s ease-out;
+    max-width: 300px;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Skills Section */
+  .skills-section {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+  }
+
+  .skill-group h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .skill-list li {
+    color: var(--text-1);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .skill-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--mint);
+  }
+
+  /* Footer */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--line);
+    margin-top: 100px;
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+
+  .footer-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--gold-bright), var(--mint));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: var(--text-1);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .footer-links a:hover {
+    color: var(--gold-bright);
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .project-card {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  @media(max-width: 768px) {
+    .hero {
+      padding: 60px 0;
+    }
+
+    .projects-container {
+      grid-template-columns: 1fr;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .modal {
+      padding: 30px;
+      max-width: 90vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <div class="logo">KEVIN</div>
+    <ul class="nav-links">
+      <li><a href="#uber-mich">Über mich</a></li>
+      <li><a href="#projekte">Projekte</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <h1>Vollständige Systeme bauen<br><span style="color: var(--gold-bright);">mit KI-gestützter Entwicklung</span></h1>
+    <p>Unabhängiger Entwickler, der Prototypen in produktive Systeme verwandelt — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit.</p>
+
+    <div class="hero-tags">
+      <span class="tag">Fullstack Development</span>
+      <span class="tag">Game Design & Art</span>
+      <span class="tag">VPS-Administration</span>
+      <span class="tag">KI-Workflows</span>
+      <span class="tag">System-Architektur</span>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="uber-mich" class="about-section">
+  <div class="container">
+    <h2 class="about-title">Über mich</h2>
+
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Ich baue komplette Systeme mit KI — ohne klassischen Coding-Background. Seit 5 Monaten arbeite ich strukturiert mit Claude: von der Idee über iteratives Testen bis zur Live-Production. Meine Spezialität: minimale Ressourcen (nur Claude Abo), maximale Qualität.
+        </p>
+        <p>
+          Mein Ansatz: strukturierte KI-Zusammenarbeit, iteratives Testen, präzises Debugging statt Trial-and-Error. Ich bringe Projekte vom Konzept bis zur Live-Production. Derzeit arbeite ich <strong>8-12 Stunden täglich</strong> an neuen Systemen und Ideen.
+        </p>
+      </div>
+
+      <div>
+        <p><strong>Was ich mache:</strong></p>
+        <ul class="about-list">
+          <li>Game Development — Spielmechaniken, Asset-Pipelines, 3D-Modellierung (Blockbench)</li>
+          <li>Tools & Dashboards — Echtzeit-Datenverarbeitung, API-Integration, Finanz-Dashboards</li>
+          <li>Backend & Infrastruktur — VPS-Administration, Cloud-Deployment (Cloudflare Workers, D1), Datenbanken</li>
+        </ul>
+
+        <p style="margin-top: 24px;"><strong>Was ich suche:</strong></p>
+        <ul class="about-list">
+          <li>Remote-Projekte im KI-Bereich</li>
+          <li>Systeme vollständig umsetzen — von Idee bis Production</li>
+          <li>Collaboration & interessante Challenges</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projekte" class="container">
+  <h2 class="section-title" style="margin-bottom: 40px;">Projektportfolio</h2>
+
+  <div class="filter-section">
+    <button class="filter-btn active" data-filter="all">Alle</button>
+    <button class="filter-btn" data-filter="active">Aktiv</button>
+    <button class="filter-btn" data-filter="paused">Pausiert</button>
+  </div>
+
+  <div class="projects-container" id="projectsGrid">
+    <!-- Wird mit JavaScript gefüllt -->
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- Skills Section -->
+<section id="skills" class="skills-section">
+  <div class="container">
+    <h2 class="section-title">Werkzeuge & Spezialisierungen</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Frontend & UI</h3>
+        <ul class="skill-list">
+          <li>TypeScript / JavaScript (ES6+)</li>
+          <li>Canvas & WebGL</li>
+          <li>Responsive Design</li>
+          <li>PWA & Service Workers</li>
+          <li>DOM Manipulation</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Backend & Infrastruktur</h3>
+        <ul class="skill-list">
+          <li>Cloudflare Workers</li>
+          <li>Node.js / Express</li>
+          <li>Python (Flask, Scripts)</li>
+          <li>SQLite / D1 Databases</li>
+          <li>VPS-Administration (Linux)</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Game Development</h3>
+        <ul class="skill-list">
+          <li>Game Design & Balancing</li>
+          <li>Generative Art Pipelines</li>
+          <li>Asset Management</li>
+          <li>Minecraft Datapacks</li>
+          <li>Blockbench (3D-Modellierung)</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>KI-Tools & Workflows</h3>
+        <ul class="skill-list">
+          <li>Claude (Projekt-Entwicklung)</li>
+          <li>Fooocus / SDXL (Bildgenerierung)</li>
+          <li>Strukturierte Kontext-Verwaltung</li>
+          <li>Iterative Messungen & Testing</li>
+          <li>Generative Audio & Video</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Datenanalyse & Tools</h3>
+        <ul class="skill-list">
+          <li>Marktdaten-Integration</li>
+          <li>Echtzeit-API-Abfragen</li>
+          <li>Backtesting & Optimierung</li>
+          <li>Finanz-Dashboards</li>
+          <li>Python Data Processing</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Arbeitsweise</h3>
+        <ul class="skill-list">
+          <li>Kontext-getriebene Struktur</li>
+          <li>Dokumentierte Handoffs</li>
+          <li>Agile Iteration</li>
+          <li>Security Review vor Production</li>
+          <li>Messung statt Intuition</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="kontakt">
+  <div class="container">
+    <div class="footer-content">
+      <h2 class="footer-title">Lass uns zusammenarbeiten</h2>
+      <p style="color: var(--text-1); margin-bottom: 30px; font-size: 1rem;">
+        Offen für Remote-Projekte, Collaboration und interessante Challenges im KI- & Game-Dev-Bereich
+      </p>
+      <div class="footer-links">
+        <a href="mailto:kevin.bauer10@outlook.de">📧 Email</a>
+        <a href="https://github.com/WeTry420" target="_blank">GitHub</a>
+        <a href="https://random-summon-defense.kkevin10.workers.dev" target="_blank">🎮 Tower Defense Live</a>
+      </div>
+      <p style="color: var(--text-2); font-size: 0.85rem; margin-top: 40px;">
+        Portfolio aktualisiert · Tower Defense Game ist live
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Kopiererschutz - Rechtsklick blockieren
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  showToast('Inspieren erwünscht! Bei Interesse an Details: kevin.bauer10@outlook.de');
+});
+
+// Toast Notification
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// Projekt-Daten mit Details
+const projects = [
+  {
+    id: 1,
+    title: "Tower Defense Mobile Game",
+    status: "active",
+    description: "Ein mobiles Tower-Defense-Spiel im Stil von Lucky Defense mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
+    tech: ["TypeScript", "Cloudflare Workers", "D1 Database", "Canvas", "PWA", "Fooocus/SDXL"],
+    details: {
+      what: "Tower-Defense-System mit eigenem Game Design, Custom-Hero-Sprites über eine generative Art-Pipeline, strukturiertem JSON-Schema für Balance und einer Live-Infrastruktur mit Spieler-Authentifizierung, Cloud-Spielständen und Freunde-System.",
+      why: "Interesse an Game Design und Generative Art Pipelines. Faszination darin, komplette Spielsysteme von der Idee bis zur Live-Production umzusetzen.",
+      learnings: [
+        "Komplette Systeme von Idee bis Production bauen",
+        "Strukturierte Asset-Pipeline für konsistente Bildgenerierung",
+        "Balance-Messung durch Bot-Tests statt Intuition",
+        "Cloud-Infrastructure für Multiplayer-Features"
+      ]
+    },
+    links: [
+      { label: "🎮 Live spielen", url: "https://random-summon-defense.kkevin10.workers.dev" },
+      { label: "GitHub", url: "https://github.com/WeTry420/random-summon-defense" }
+    ]
+  },
+  {
+    id: 2,
+    title: "Marketplace API Tracker",
+    status: "paused",
+    description: "Python-Dashboard für Echtzeitüberwachung von Marktplatz-Daten mit Preis-Historisierung, Flip-Margen-Berechnung und Trading-Rechner. Funktioniert mit beliebigen Servern, die eine JSON-API zur Verfügung stellen.",
+    tech: ["Python", "Flask", "SQLite", "REST API", "Charts.js", "Real-time Data"],
+    details: {
+      what: "Lokales Dashboard mit automatischem API-Abruf (15 Min Intervall), Preishistorie mit 24h/7d/30d Charts, Live-Flip-Margin-Berechnung, Trading-Rechner mit Steuern, Watchlist und detailliertes Journal mit Win-Rate-Tracking.",
+      why: "Interesse an Datenanalyse und Markt-Integration. Bewusst generalisiert für beliebige APIs, nicht nur spezifisches System.",
+      learnings: [
+        "Echtzeit-Datenverarbeitung und Historisierung",
+        "API-Integration und Fehlerbehandlung",
+        "User-Interface für Finanz-Dashboards",
+        "SQL-Queries für Datenabfragen optimieren"
+      ]
+    }
+  },
+  {
+    id: 3,
+    title: "Minecraft RPG Server",
+    status: "paused",
+    description: "Ein progressives RPG-Minecraft-Server-System mit Custom-Enchantments, einem Upgrade-System für Waffen, Schmied-NPCs und Starter-Kits. Nutzt Datapacks, Skript-Plugins und Citizens NPCs für versionsstabile Implementierung.",
+    tech: ["Paper 26.1.2", "Minecraft Datapacks", "Skript Plugin", "Citizens NPCs", "Blockbench"],
+    details: {
+      what: "Voll funktionierendes RPG-System mit Custom-Enchant-Registry, progressivem Schmied-Upgrade-System (+0 bis +9 mit skalierenden Kosten), Starter-Kit-System mit Cooldowns. 3D-Modelle selbst erstellt mit Blockbench.",
+      why: "Interesse an Minecraft-Modding und Game Design. Bewusste Vermeidung von komplexen RPG-Plugins zugunsten von Datapacks (versionsrobuster).",
+      learnings: [
+        "Versionsrobuste Systeme mit Datapacks bauen",
+        "Komplexität von MMO-Systemen als Einzelentwickler",
+        "3D-Modellierung mit Blockbench",
+        "NPC-Systeme mit Citizens Plugins"
+      ]
+    }
+  },
+  {
+    id: 4,
+    title: "KI-Trading Agent",
+    status: "paused",
+    description: "Autonomes System zur Krypto-Trading-Orchestrierung mit VPS-Deployment. Automatische Überwachung der Marktdaten mit 2-Stunden-Intervall und Watchdog-System mit Notfall-Wakeup bei kritischen Kursbewegungen.",
+    tech: ["Python", "Binance API", "VPS", "systemd", "nginx", "Watchdog System"],
+    details: {
+      what: "Vollständig produktiv betriebenes System auf eigenem VPS. Orchestrator mit Takt-Intervallen, Watchdog mit automatischem Emergency-Wake bei ±8% Kursbewegung, Verbindung zu realen Marktdaten, sicheres Dashboard mit nginx + Basic Auth.",
+      why: "Persönliches Interesse an Krypto-Trading und Automation. Experimente mit minimalen Ressourcen.",
+      learnings: [
+        "Ohne paid APIs und Kapital = begrenzte Kante gegen große Institutionen",
+        "Für echte Trading-Tools sind Daten-APIs mit Budget nötig",
+        "VPS-Administration und automatisierte Systeme",
+        "Pivot zu Game Dev mehr spaß und bessere Ergebnisse"
+      ]
+    }
+  },
+  {
+    id: 5,
+    title: "Freqtrade Trading Bot",
+    status: "paused",
+    description: "Vollständig optimierter Trading-Bot mit eigener Strategie basierend auf RSI, Bollinger Bands und EMA200. Hyperopt-optimiert und gegen echte historische Marktdaten getestet.",
+    tech: ["Freqtrade", "Python", "RSI/BB/EMA", "Hyperopt", "Backtesting"],
+    details: {
+      what: "Produktionsreifer Bot mit custom-entwickelter Strategie, hyperopt-optimiert für maximale Performance auf historischen Daten. Vollständiges Backtesting gegen echte Marktdaten.",
+      why: "Vertiefung in Trading-Strategien und technische Analyse. Experimente mit minimalen Kapital.",
+      learnings: [
+        "Backtesting != Live-Trading Ergebnisse",
+        "Minimales Kapital begrenzt echte Learnings",
+        "Strategien-Optimierung ist komplex",
+        "Erkenntnis: Trading ohne Budget hat Grenzen"
+      ]
+    }
+  },
+  {
+    id: 6,
+    title: "Krypto-Edutainment-Videos",
+    status: "paused",
+    description: "Kurzformat-Video-Content mit personifiziertem Candlestick-Charakter. Produziert über eine vollständig kostenlose KI-Content-Pipeline mit automatischer Bildgenerierung, Voice-Over und Video-Verarbeitung.",
+    tech: ["Generative Video", "KI-Voice", "FFmpeg", "Python", "Asset Versioning"],
+    details: {
+      what: "Vollständige Content-Pipeline: Text-Skript → Bildgenerierung → Voice-Over → Video-Zusammensetzung. Personalisierter Candlestick-Character mit Animations-System. Versioniertes Content-Management.",
+      why: "Interesse an generativer Media und kostenlosen KI-Tools. Experimente mit automatisierter Content-Produktion.",
+      learnings: [
+        "Komplette Pipelines aufbauen mit kostenlosen Tools",
+        "Asset-Management bei KI-Content",
+        "Konsistenz über mehrere Generationen hinweg",
+        "Fokus-Shift: Game Dev liefert bessere Ergebnisse"
+      ]
+    }
+  }
+];
+
+const projectsGrid = document.getElementById('projectsGrid');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const modalOverlay = document.getElementById('modalOverlay');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+
+function renderProjects(filter = 'all') {
+  projectsGrid.innerHTML = '';
+
+  const filtered = filter === 'all'
+    ? projects
+    : projects.filter(p => p.status === filter);
+
+  filtered.forEach((project, index) => {
+    const card = document.createElement('div');
+    card.className = `project-card`;
+    card.style.animationDelay = `${index * 0.1}s`;
+
+    const statusClass = project.status === 'active' ? 'active' : 'paused';
+    const statusText = project.status === 'active' ? '● AKTIV' : '⊘ PAUSIERT';
+    const pulseClass = project.status === 'active' ? 'pulse' : '';
+
+    const linksHTML = project.links
+      ? project.links.map(link => `<a href="${link.url}" target="_blank" class="project-link">${link.label}</a>`).join('')
+      : '';
+
+    card.innerHTML = `
+      <div class="project-status ${statusClass}">
+        <span class="status-dot ${pulseClass}"></span>
+        ${statusText}
+      </div>
+      <h3 class="project-title">${project.title}</h3>
+      <p class="project-desc">${project.description}</p>
+      <div class="tech-stack">
+        ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+      </div>
+      <div class="project-links">
+        <button class="project-link" onclick="openModal(${project.id})">📖 Details</button>
+        ${linksHTML}
+      </div>
+    `;
+
+    projectsGrid.appendChild(card);
+  });
+}
+
+function openModal(projectId) {
+  const project = projects.find(p => p.id === projectId);
+  if (!project) return;
+
+  const statusClass = project.status === 'active' ? 'active' : 'paused';
+  const statusText = project.status === 'active' ? '● AKTIV' : '⊘ PAUSIERT';
+
+  modalContent.innerHTML = `
+    <div style="margin-bottom: 10px;">
+      <span class="project-status ${statusClass}" style="display: inline-flex;">
+        <span class="status-dot"></span>
+        ${statusText}
+      </span>
+    </div>
+    <h2>${project.title}</h2>
+
+    <div class="modal-section">
+      <h3>Übersicht</h3>
+      <p>${project.details.what}</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Motivation</h3>
+      <p>${project.details.why}</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Learnings & Erkenntnisse</h3>
+      <ul>
+        ${project.details.learnings.map(l => `<li>${l}</li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="modal-section">
+      <h3>Tech-Stack</h3>
+      <div class="tech-stack">
+        ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+      </div>
+    </div>
+
+    ${project.links ? `
+      <div class="modal-section">
+        <h3>Links</h3>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          ${project.links.map(link => `
+            <a href="${link.url}" target="_blank" class="project-link">${link.label}</a>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+  `;
+
+  modalOverlay.classList.add('active');
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('active');
+}
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProjects(btn.dataset.filter);
+  });
+});
+
+// Initial render
+renderProjects();
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href !== '#') {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>
