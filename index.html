@@ -143,8 +143,44 @@
   nav .container {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     /* Platz für den fixierten Theme-Toggle oben rechts */
     padding-right: 90px;
+  }
+
+  /* Menue-Schalter, nur auf schmalen Bildschirmen sichtbar */
+  .nav-schalter {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .nav-schalter span {
+    display: block;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+
+  .nav-schalter[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-schalter[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-schalter[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   .nav-links {
@@ -182,7 +218,46 @@
   }
 
   @media(max-width: 768px) {
+    nav .container {
+      justify-content: flex-start;
+      padding-right: 76px;
+    }
+
+    .nav-schalter {
+      display: flex;
+    }
+
+    /* Aufklappbares Menue unter der Leiste */
     .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 4px 24px 12px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .nav-links.offen {
+      display: flex;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 15px 2px;
+      font-size: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links li:last-child a {
+      border-bottom: none;
+    }
+
+    .nav-links a::after {
       display: none;
     }
   }
@@ -1013,10 +1088,6 @@
       max-width: 90vw;
     }
 
-    .nav-links {
-      gap: 20px;
-    }
-
     .stats-grid {
       grid-template-columns: 1fr;
     }
@@ -1024,7 +1095,7 @@
     .theme-toggle {
       width: 44px;
       height: 44px;
-      top: 20px;
+      top: 14px;
       right: 20px;
     }
 
@@ -1056,7 +1127,10 @@
 <!-- Navigation -->
 <nav>
   <div class="container">
-    <ul class="nav-links">
+    <button class="nav-schalter" id="navSchalter" aria-expanded="false" aria-controls="navLinks" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#uber-mich">Über mich</a></li>
       <li><a href="#projekte">Projekte</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -1287,6 +1361,35 @@ themeToggle.addEventListener('click', () => {
 function updateThemeIcon(theme) {
   themeToggle.querySelector('.theme-toggle-icon').textContent = theme === 'light' ? '🌙' : '☀️';
 }
+
+// Menue auf schmalen Bildschirmen
+const navSchalter = document.getElementById('navSchalter');
+const navLinks = document.getElementById('navLinks');
+
+function menueSetzen(offen) {
+  navLinks.classList.toggle('offen', offen);
+  navSchalter.setAttribute('aria-expanded', String(offen));
+  navSchalter.setAttribute('aria-label', offen ? 'Menü schliessen' : 'Menü öffnen');
+}
+
+navSchalter.addEventListener('click', (e) => {
+  e.stopPropagation();
+  menueSetzen(navSchalter.getAttribute('aria-expanded') !== 'true');
+});
+
+// Nach der Auswahl, bei Klick daneben und mit Escape wieder zu
+navLinks.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') menueSetzen(false);
+});
+
+document.addEventListener('click', (e) => {
+  if (navLinks.classList.contains('offen') && !navLinks.contains(e.target)) menueSetzen(false);
+});
+
+// Beim Wechsel auf breite Bildschirme darf kein offener Zustand haengenbleiben
+window.matchMedia('(min-width: 769px)').addEventListener('change', (e) => {
+  if (e.matches) menueSetzen(false);
+});
 
 // Right Click Protection
 document.addEventListener('contextmenu', (e) => {
@@ -1601,7 +1704,10 @@ modalOverlay.addEventListener('click', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Escape') {
+    closeModal();
+    menueSetzen(false);
+  }
 });
 
 filterBtns.forEach(btn => {
