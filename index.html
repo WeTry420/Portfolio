@@ -327,47 +327,6 @@
     line-height: 1.8;
   }
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 24px;
-    margin: 60px 0;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    text-align: center;
-    transition: var(--transition);
-  }
-
-  .stat-card:hover {
-    border-color: var(--primary);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
-  }
-
-  .stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .stat-label {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-  }
-
   .hero-tags {
     display: flex;
     gap: 12px;
@@ -893,33 +852,6 @@
     color: var(--accent);
   }
 
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 16px 24px;
-    border-radius: var(--radius);
-    z-index: 2000;
-    animation: slideIn 0.3s ease-out;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-  }
-
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateX(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   /* Skills Section */
   .skills-section {
     padding: 100px 0;
@@ -963,47 +895,6 @@
     position: absolute;
     left: 0;
     color: var(--accent);
-  }
-
-  /* CTA Banner */
-  .cta-banner {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: var(--radius-lg);
-    padding: 60px 40px;
-    text-align: center;
-    margin: 100px 0;
-    color: white;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
-  .cta-banner h2 {
-    font-size: 2rem;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
-
-  .cta-banner p {
-    font-size: 1.05rem;
-    margin-bottom: 32px;
-    opacity: 0.95;
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 14px 32px;
-    background: white;
-    color: var(--primary);
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-family: 'JetBrains Mono', monospace;
-    transition: var(--transition);
-  }
-
-  .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
 
   /* Footer */
@@ -1088,23 +979,11 @@
       max-width: 90vw;
     }
 
-    .stats-grid {
-      grid-template-columns: 1fr;
-    }
-
     .theme-toggle {
       width: 44px;
       height: 44px;
       top: 14px;
       right: 20px;
-    }
-
-    .cta-banner {
-      padding: 40px 24px;
-    }
-
-    .cta-banner h2 {
-      font-size: 1.5rem;
     }
   }
 
@@ -1145,21 +1024,6 @@
     <div class="container">
       <h1>Vollständige Systeme bauen<br>mit KI-gestützter Entwicklung</h1>
       <p>Developer & Systems Builder — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit und schnelle Iterationen.</p>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">6</div>
-          <div class="stat-label">Projekte</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">1</div>
-          <div class="stat-label">Live</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">8-12h</div>
-          <div class="stat-label">Täglich</div>
-        </div>
-      </div>
 
       <div class="hero-tags">
         <span class="tag">Fullstack Development</span>
@@ -1224,15 +1088,6 @@
   <div class="projects-container" id="projectsGrid"></div>
 </section>
 
-<!-- CTA Banner -->
-<section class="cta-banner" id="cta-section">
-  <div class="container">
-    <h2>Interessiert an Zusammenarbeit?</h2>
-    <p>Ich liebe es, an spannenden Projekten zu arbeiten. Lass uns über deine Idee sprechen.</p>
-    <a href="mailto:kevin.bauer10@outlook.de" class="cta-button">📧 Jetzt Kontakt aufnehmen</a>
-  </div>
-</section>
-
 <!-- Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modal">
@@ -1281,32 +1136,20 @@
       </div>
 
       <div class="skill-group">
-        <h3>KI-Tools & Workflows</h3>
+        <h3>KI & Bildgenerierung</h3>
         <ul class="skill-list">
           <li>Claude (Projekt-Entwicklung)</li>
           <li>Fooocus / SDXL</li>
-          <li>Strukturierte Kontext-Verwaltung</li>
-          <li>Iterative Testing</li>
+          <li>Tesseract.js (OCR)</li>
         </ul>
       </div>
 
       <div class="skill-group">
-        <h3>Datenanalyse & Tools</h3>
+        <h3>Daten & Automatisierung</h3>
         <ul class="skill-list">
-          <li>Marktdaten-Integration</li>
-          <li>Echtzeit-API-Abfragen</li>
-          <li>Finanz-Dashboards</li>
+          <li>REST-APIs & Echtzeit-Abruf</li>
+          <li>n8n (Workflow-Automatisierung)</li>
           <li>Python Data Processing</li>
-        </ul>
-      </div>
-
-      <div class="skill-group">
-        <h3>Arbeitsweise</h3>
-        <ul class="skill-list">
-          <li>Kontext-getriebene Struktur</li>
-          <li>Agile Iteration</li>
-          <li>Security Review vor Production</li>
-          <li>Messung statt Intuition</li>
         </ul>
       </div>
     </div>
@@ -1390,20 +1233,6 @@ document.addEventListener('click', (e) => {
 window.matchMedia('(min-width: 769px)').addEventListener('change', (e) => {
   if (e.matches) menueSetzen(false);
 });
-
-// Right Click Protection
-document.addEventListener('contextmenu', (e) => {
-  e.preventDefault();
-  showToast('Inspieren erwünscht! Bei Interesse an Details: kevin.bauer10@outlook.de');
-});
-
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
-}
 
 // Projects Data
 const projects = [
