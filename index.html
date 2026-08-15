@@ -120,6 +120,37 @@
     transform: scale(1.1);
   }
 
+  /* Sprach-Umschalter, links neben dem Theme-Knopf */
+  .lang-toggle {
+    position: fixed;
+    top: 24px;
+    right: 86px;
+    z-index: 999;
+    height: 50px;
+    padding: 0 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="dark"] .lang-toggle {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .lang-toggle:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.05);
+  }
+
   .theme-toggle-icon {
     font-size: 1.4rem;
   }
@@ -145,8 +176,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* Platz für den fixierten Theme-Toggle oben rechts */
-    padding-right: 90px;
+    /* Platz für die zwei fixierten Schalter oben rechts (Sprache + Theme) */
+    padding-right: 150px;
   }
 
   /* Menue-Schalter, nur auf schmalen Bildschirmen sichtbar */
@@ -221,7 +252,7 @@
   @media(max-width: 768px) {
     nav .container {
       justify-content: flex-start;
-      padding-right: 76px;
+      padding-right: 128px;
     }
 
     .nav-schalter {
@@ -986,6 +1017,13 @@
       top: 14px;
       right: 20px;
     }
+
+    .lang-toggle {
+      top: 14px;
+      right: 72px;
+      height: 44px;
+      padding: 0 12px;
+    }
   }
 
   .hidden {
@@ -999,7 +1037,8 @@
 </head>
 <body>
 
-<!-- Theme Toggle -->
+<!-- Sprache & Theme -->
+<button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
   <span class="theme-toggle-icon">🌙</span>
 </button>
@@ -1011,10 +1050,10 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#uber-mich">Über mich</a></li>
-      <li><a href="#projekte">Projekte</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#uber-mich" data-i18n="navAbout">Über mich</a></li>
+      <li><a href="#projekte" data-i18n="navProjects">Projekte</a></li>
+      <li><a href="#skills" data-i18n="navSkills">Skills</a></li>
+      <li><a href="#kontakt" data-i18n="navContact">Kontakt</a></li>
     </ul>
   </div>
 </nav>
@@ -1023,8 +1062,8 @@
 <section class="hero">
   <div class="hero-content">
     <div class="container">
-      <h1>Vollständige Systeme bauen<br>mit KI-gestützter Entwicklung</h1>
-      <p>Developer & Systems Builder — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit und schnelle Iterationen.</p>
+      <h1 data-i18n-html="heroTitle">Vollständige Systeme bauen<br>mit KI-gestützter Entwicklung</h1>
+      <p data-i18n="heroSub">Developer & Systems Builder — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit und schnelle Iterationen.</p>
 
       <div class="hero-tags">
         <span class="tag">Fullstack Development</span>
@@ -1040,33 +1079,33 @@
 <section id="uber-mich" class="about-section">
   <div class="container">
     <div class="section-header">
-      <h2>Über mich</h2>
-      <p>Wer ich bin und wie ich arbeite</p>
+      <h2 data-i18n="aboutTitle">Über mich</h2>
+      <p data-i18n="aboutSub">Wer ich bin und wie ich arbeite</p>
     </div>
 
     <div class="about-content">
       <div class="about-text">
-        <p>
+        <p data-i18n="aboutP1">
           Ich baue funktionsfähige Systeme schnell mit KI: Games, APIs, Trading-Bots, Backend-Infrastruktur. Kann mehrere Projekte parallel managen, wähle aber bewusst Fokus statt alles zu verteilen.
         </p>
-        <p>
+        <p data-i18n="aboutP2">
           Aktuell: Tower Defense als Hauptprojekt. Andere Systeme (Marketplace Tracker, Trading-Bots) laufen, sind aber pausiert. Spezialisierung: strukturierte KI-Zusammenarbeit, iteratives Testen, präzises Debugging statt Trial-and-Error.
         </p>
       </div>
 
       <div>
-        <p><strong>Was ich mache:</strong></p>
+        <p><strong data-i18n="aboutDoLabel">Was ich mache:</strong></p>
         <ul class="about-list">
-          <li>Game Development — Spielmechaniken, Asset-Pipelines, 3D-Modellierung</li>
-          <li>Tools & Dashboards — Echtzeit-Datenverarbeitung, API-Integration</li>
-          <li>Backend & Infrastruktur — Cloud-Deployment, Datenbanken, VPS-Administration</li>
+          <li data-i18n="aboutDo1">Game Development — Spielmechaniken, Asset-Pipelines, 3D-Modellierung</li>
+          <li data-i18n="aboutDo2">Tools & Dashboards — Echtzeit-Datenverarbeitung, API-Integration</li>
+          <li data-i18n="aboutDo3">Backend & Infrastruktur — Cloud-Deployment, Datenbanken, VPS-Administration</li>
         </ul>
 
-        <p style="margin-top: 24px;"><strong>Was ich suche:</strong></p>
+        <p style="margin-top: 24px;"><strong data-i18n="aboutSeekLabel">Was ich suche:</strong></p>
         <ul class="about-list">
-          <li>Remote-Projekte im KI-Bereich</li>
-          <li>Systeme vollständig umsetzen — von Idee bis Production</li>
-          <li>Collaboration & interessante Challenges</li>
+          <li data-i18n="aboutSeek1">Remote-Projekte im KI-Bereich</li>
+          <li data-i18n="aboutSeek2">Systeme vollständig umsetzen — von Idee bis Production</li>
+          <li data-i18n="aboutSeek3">Collaboration & interessante Challenges</li>
         </ul>
       </div>
     </div>
@@ -1076,14 +1115,14 @@
 <!-- Projects Section -->
 <section id="projekte" class="container">
   <div class="section-header">
-    <h2>Projektportfolio</h2>
-    <p>Funktionsfähige Systeme von der Idee bis zur Live-Produktion</p>
+    <h2 data-i18n="projTitle">Projektportfolio</h2>
+    <p data-i18n="projSub">Funktionsfähige Systeme von der Idee bis zur Live-Produktion</p>
   </div>
 
   <div class="filter-section">
-    <button class="filter-btn active" data-filter="all">Alle</button>
-    <button class="filter-btn" data-filter="active">Aktiv</button>
-    <button class="filter-btn" data-filter="paused">Pausiert</button>
+    <button class="filter-btn active" data-filter="all" data-i18n="filterAll">Alle</button>
+    <button class="filter-btn" data-filter="active" data-i18n="filterActive">Aktiv</button>
+    <button class="filter-btn" data-filter="paused" data-i18n="filterPaused">Pausiert</button>
   </div>
 
   <div class="projects-container" id="projectsGrid"></div>
@@ -1101,23 +1140,23 @@
 <section id="skills" class="skills-section">
   <div class="container">
     <div class="section-header">
-      <h2>Werkzeuge & Spezialisierungen</h2>
-      <p>Technologien und Fähigkeiten</p>
+      <h2 data-i18n="skillsTitle">Werkzeuge & Spezialisierungen</h2>
+      <p data-i18n="skillsSub">Technologien und Fähigkeiten</p>
     </div>
 
     <div class="skills-grid">
       <div class="skill-group">
-        <h3>Frontend & UI</h3>
+        <h3 data-i18n="skillG1">Frontend & UI</h3>
         <ul class="skill-list">
           <li>JavaScript (ES6+)</li>
-          <li>Canvas 2D (Spiel-Rendering)</li>
+          <li data-i18n="skillCanvas">Canvas 2D (Spiel-Rendering)</li>
           <li>PWA & Service Workers</li>
           <li>Responsive Design</li>
         </ul>
       </div>
 
       <div class="skill-group">
-        <h3>Backend & Infrastruktur</h3>
+        <h3 data-i18n="skillG2">Backend & Infrastruktur</h3>
         <ul class="skill-list">
           <li>Cloudflare Workers</li>
           <li>Node.js / Express</li>
@@ -1127,29 +1166,29 @@
       </div>
 
       <div class="skill-group">
-        <h3>Game Development</h3>
+        <h3 data-i18n="skillG3">Game Development</h3>
         <ul class="skill-list">
-          <li>Game Design & Balancing</li>
-          <li>Generative Art Pipelines</li>
-          <li>Asset Management</li>
+          <li data-i18n="skillGameDesign">Game Design & Balancing</li>
+          <li data-i18n="skillArtPipe">Generative Art Pipelines</li>
+          <li data-i18n="skillAssetMgmt">Asset Management</li>
           <li>Blockbench (3D)</li>
         </ul>
       </div>
 
       <div class="skill-group">
-        <h3>KI & Bildgenerierung</h3>
+        <h3 data-i18n="skillG4">KI & Bildgenerierung</h3>
         <ul class="skill-list">
-          <li>Claude (Projekt-Entwicklung)</li>
+          <li data-i18n="skillClaude">Claude (Projekt-Entwicklung)</li>
           <li>Fooocus / SDXL</li>
           <li>Tesseract.js (OCR)</li>
         </ul>
       </div>
 
       <div class="skill-group">
-        <h3>Daten & Automatisierung</h3>
+        <h3 data-i18n="skillG5">Daten & Automatisierung</h3>
         <ul class="skill-list">
-          <li>REST-APIs & Echtzeit-Abruf</li>
-          <li>n8n (Workflow-Automatisierung)</li>
+          <li data-i18n="skillRest">REST-APIs & Echtzeit-Abruf</li>
+          <li data-i18n="skillN8n">n8n (Workflow-Automatisierung)</li>
           <li>Python Data Processing</li>
         </ul>
       </div>
@@ -1161,16 +1200,16 @@
 <footer id="kontakt">
   <div class="container">
     <div class="footer-content">
-      <h2 class="footer-title">Lass uns zusammenarbeiten</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1rem;">
+      <h2 class="footer-title" data-i18n="footerTitle">Lass uns zusammenarbeiten</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1rem;" data-i18n="footerSub">
         Offen für Remote-Projekte, Collaboration und interessante Challenges
       </p>
       <div class="footer-links">
         <a href="mailto:kevin.bauer10@outlook.de">📧 Email</a>
         <a href="https://github.com/WeTry420" target="_blank">GitHub</a>
-        <a href="https://random-summon-defense.kkevin10.workers.dev" target="_blank">🎮 Tower Defense Live</a>
+        <a href="https://random-summon-defense.kkevin10.workers.dev" target="_blank" data-i18n="footerLinkGame">🎮 Tower Defense Live</a>
       </div>
-      <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-top: 40px;">
+      <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-top: 40px;" data-i18n="footerNote">
         Portfolio · Tower Defense Game ist live auf Cloudflare Workers
       </p>
     </div>
@@ -1213,7 +1252,7 @@ const navLinks = document.getElementById('navLinks');
 function menueSetzen(offen) {
   navLinks.classList.toggle('offen', offen);
   navSchalter.setAttribute('aria-expanded', String(offen));
-  navSchalter.setAttribute('aria-label', offen ? 'Menü schliessen' : 'Menü öffnen');
+  navSchalter.setAttribute('aria-label', offen ? t('menuClose') : t('menuOpen'));
 }
 
 navSchalter.addEventListener('click', (e) => {
@@ -1235,145 +1274,382 @@ window.matchMedia('(min-width: 769px)').addEventListener('change', (e) => {
   if (e.matches) menueSetzen(false);
 });
 
+// ---- Sprache (i18n) ----
+function readLang() {
+  try { return localStorage.getItem('lang'); } catch (e) { return null; }
+}
+function saveLang(v) {
+  try { localStorage.setItem('lang', v); } catch (e) { /* ignorieren */ }
+}
+let LANG = readLang() || (navigator.language && navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
+
+// Gibt bei {de,en}-Objekten den Text der aktiven Sprache zurück, sonst den Wert unveraendert
+function L(v) {
+  return (v && typeof v === 'object' && !Array.isArray(v) && ('de' in v)) ? v[LANG] : v;
+}
+
+// Statische UI-Texte
+const UI = {
+  de: {
+    navAbout: "Über mich", navProjects: "Projekte", navSkills: "Skills", navContact: "Kontakt",
+    heroTitle: "Vollständige Systeme bauen<br>mit KI-gestützter Entwicklung",
+    heroSub: "Developer & Systems Builder — von Game Design über Infrastruktur bis zur Live-Publikation. Spezialisiert auf strukturierte KI-Zusammenarbeit und schnelle Iterationen.",
+    aboutTitle: "Über mich", aboutSub: "Wer ich bin und wie ich arbeite",
+    aboutP1: "Ich baue funktionsfähige Systeme schnell mit KI: Games, APIs, Trading-Bots, Backend-Infrastruktur. Kann mehrere Projekte parallel managen, wähle aber bewusst Fokus statt alles zu verteilen.",
+    aboutP2: "Aktuell: Tower Defense als Hauptprojekt. Andere Systeme (Marketplace Tracker, Trading-Bots) laufen, sind aber pausiert. Spezialisierung: strukturierte KI-Zusammenarbeit, iteratives Testen, präzises Debugging statt Trial-and-Error.",
+    aboutDoLabel: "Was ich mache:",
+    aboutDo1: "Game Development — Spielmechaniken, Asset-Pipelines, 3D-Modellierung",
+    aboutDo2: "Tools & Dashboards — Echtzeit-Datenverarbeitung, API-Integration",
+    aboutDo3: "Backend & Infrastruktur — Cloud-Deployment, Datenbanken, VPS-Administration",
+    aboutSeekLabel: "Was ich suche:",
+    aboutSeek1: "Remote-Projekte im KI-Bereich",
+    aboutSeek2: "Systeme vollständig umsetzen — von Idee bis Production",
+    aboutSeek3: "Collaboration & interessante Challenges",
+    projTitle: "Projektportfolio", projSub: "Funktionsfähige Systeme von der Idee bis zur Live-Produktion",
+    filterAll: "Alle", filterActive: "Aktiv", filterPaused: "Pausiert",
+    skillsTitle: "Werkzeuge & Spezialisierungen", skillsSub: "Technologien und Fähigkeiten",
+    skillG1: "Frontend & UI", skillG2: "Backend & Infrastruktur", skillG3: "Game Development",
+    skillG4: "KI & Bildgenerierung", skillG5: "Daten & Automatisierung",
+    skillCanvas: "Canvas 2D (Spiel-Rendering)", skillGameDesign: "Game Design & Balancing",
+    skillArtPipe: "Generative Art Pipelines", skillAssetMgmt: "Asset Management",
+    skillClaude: "Claude (Projekt-Entwicklung)", skillRest: "REST-APIs & Echtzeit-Abruf",
+    skillN8n: "n8n (Workflow-Automatisierung)",
+    footerTitle: "Lass uns zusammenarbeiten",
+    footerSub: "Offen für Remote-Projekte, Collaboration und interessante Challenges",
+    footerLinkGame: "🎮 Tower Defense Live",
+    footerNote: "Portfolio · Tower Defense Game ist live auf Cloudflare Workers",
+    statusActive: "● AKTIV", statusPaused: "⊘ PAUSIERT", btnDetails: "Details",
+    mInsights: "Einblicke", mGalleryHint: "Klick auf ein Bild öffnet es in voller Grösse.",
+    mOverview: "Übersicht", mMotivation: "Motivation", mLearnings: "Learnings & Erkenntnisse",
+    mTech: "Tech-Stack", mLinks: "Links",
+    menuOpen: "Menü öffnen", menuClose: "Menü schliessen"
+  },
+  en: {
+    navAbout: "About", navProjects: "Projects", navSkills: "Skills", navContact: "Contact",
+    heroTitle: "Building complete systems<br>with AI-assisted development",
+    heroSub: "Developer & Systems Builder — from game design through infrastructure to live publication. Focused on structured AI collaboration and fast iteration.",
+    aboutTitle: "About me", aboutSub: "Who I am and how I work",
+    aboutP1: "I build working systems fast with AI: games, APIs, trading bots, backend infrastructure. I can manage several projects in parallel, but deliberately choose focus over spreading myself thin.",
+    aboutP2: "Right now Tower Defense is the main project. Other systems (marketplace tracker, trading bots) work but are paused. Specialty: structured AI collaboration, iterative testing, precise debugging instead of trial and error.",
+    aboutDoLabel: "What I do:",
+    aboutDo1: "Game development — mechanics, asset pipelines, 3D modelling",
+    aboutDo2: "Tools & dashboards — real-time data processing, API integration",
+    aboutDo3: "Backend & infrastructure — cloud deployment, databases, VPS administration",
+    aboutSeekLabel: "What I'm looking for:",
+    aboutSeek1: "Remote projects in the AI space",
+    aboutSeek2: "Building systems end to end — from idea to production",
+    aboutSeek3: "Collaboration & interesting challenges",
+    projTitle: "Project portfolio", projSub: "Working systems from idea to live production",
+    filterAll: "All", filterActive: "Active", filterPaused: "Paused",
+    skillsTitle: "Tools & Specializations", skillsSub: "Technologies and skills",
+    skillG1: "Frontend & UI", skillG2: "Backend & Infrastructure", skillG3: "Game Development",
+    skillG4: "AI & Image Generation", skillG5: "Data & Automation",
+    skillCanvas: "Canvas 2D (game rendering)", skillGameDesign: "Game design & balancing",
+    skillArtPipe: "Generative art pipelines", skillAssetMgmt: "Asset management",
+    skillClaude: "Claude (project development)", skillRest: "REST APIs & real-time fetch",
+    skillN8n: "n8n (workflow automation)",
+    footerTitle: "Let's work together",
+    footerSub: "Open to remote projects, collaboration and interesting challenges",
+    footerLinkGame: "🎮 Tower Defense (live)",
+    footerNote: "Portfolio · Tower Defense is live on Cloudflare Workers",
+    statusActive: "● ACTIVE", statusPaused: "⊘ PAUSED", btnDetails: "Details",
+    mInsights: "Insights", mGalleryHint: "Click an image to open it full size.",
+    mOverview: "Overview", mMotivation: "Motivation", mLearnings: "Learnings & insights",
+    mTech: "Tech stack", mLinks: "Links",
+    menuOpen: "Open menu", menuClose: "Close menu"
+  }
+};
+function t(key) { return (UI[LANG] && UI[LANG][key] != null) ? UI[LANG][key] : key; }
+
 // Projects Data
 const projects = [
   {
     id: 1,
     title: "Tower Defense Mobile Game",
     status: "active",
-    description: "Ein mobiles Tower-Defense-Spiel mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
+    description: {
+      de: "Ein mobiles Tower-Defense-Spiel mit zufälligen Hero-Summons und Merge-Mechanik. Live auf Cloudflare Workers mit Cloud-Spielständen, Ranglisten und echter Multiplayer-Infrastruktur.",
+      en: "A mobile tower-defense game with random hero summons and a merge mechanic. Live on Cloudflare Workers with cloud saves, leaderboards and real multiplayer infrastructure."
+    },
     tech: ["JavaScript (ES6+)", "Cloudflare Workers", "D1 Database", "Canvas", "PWA", "Fooocus/SDXL"],
-    badges: ["✨ Live", "⚡ Real-time", "🎮 Spielbar"],
+    badges: {
+      de: ["✨ Live", "⚡ Real-time", "🎮 Spielbar"],
+      en: ["✨ Live", "⚡ Real-time", "🎮 Playable"]
+    },
     bilder: [
-      { datei: "bilder/spiel-karte.webp", text: "Das Spielfeld mit beschworenen Helden. Jedes Sprite ist über die eigene Art-Pipeline entstanden." },
-      { datei: "bilder/spiel-welle.webp", text: "Stufe 510 im laufenden Spiel: Wellen-Timer, Gegnerzähler und der Boss am oberen Rand. Unten Diamanten, Beschwör-Kosten und die belegten Feldplätze." },
-      { datei: "bilder/spiel-welle2.webp", text: "Eine Stufe später greift die nächste Welle an. Die Anzeige „Turm · Gott“ markiert den Gegnertyp der Stufe." }
+      { datei: "bilder/spiel-karte.webp", text: {
+        de: "Das Spielfeld mit beschworenen Helden. Jedes Sprite ist über die eigene Art-Pipeline entstanden.",
+        en: "The battlefield with summoned heroes. Every sprite comes from my own art pipeline." } },
+      { datei: "bilder/spiel-welle.webp", text: {
+        de: "Stufe 510 im laufenden Spiel: Wellen-Timer, Gegnerzähler und der Boss am oberen Rand. Unten Diamanten, Beschwör-Kosten und die belegten Feldplätze.",
+        en: "Stage 510 mid-game: wave timer, enemy counter and the boss at the top. Below: diamonds, summon cost and the occupied board slots." } },
+      { datei: "bilder/spiel-welle2.webp", text: {
+        de: "Eine Stufe später greift die nächste Welle an. Die Anzeige „Turm · Gott“ markiert den Gegnertyp der Stufe.",
+        en: "One stage later the next wave attacks. The label “Tower · God” marks the stage's enemy type." } }
     ],
     details: {
-      what: "Tower-Defense-System mit eigenem Game Design, Custom-Hero-Sprites über eine generative Art-Pipeline, strukturiertem JSON-Schema für Balance und einer Live-Infrastruktur mit Spieler-Authentifizierung, Cloud-Spielständen und Freunde-System.",
-      why: "Interesse an Game Design und Generative Art Pipelines. Faszination darin, komplette Spielsysteme von der Idee bis zur Live-Production umzusetzen.",
-      learnings: [
-        "Komplette Systeme von Idee bis Production bauen",
-        "Strukturierte Asset-Pipeline für konsistente Bildgenerierung",
-        "Balance-Messung durch Bot-Tests statt Intuition",
-        "Cloud-Infrastructure für Multiplayer-Features"
-      ]
+      what: {
+        de: "Tower-Defense-System mit eigenem Game Design, Custom-Hero-Sprites über eine generative Art-Pipeline, strukturiertem JSON-Schema für Balance und einer Live-Infrastruktur mit Spieler-Authentifizierung, Cloud-Spielständen und Freunde-System.",
+        en: "A tower-defense system with my own game design, custom hero sprites from a generative art pipeline, a structured JSON schema for balance, and live infrastructure with player authentication, cloud saves and a friends system."
+      },
+      why: {
+        de: "Interesse an Game Design und Generative Art Pipelines. Faszination darin, komplette Spielsysteme von der Idee bis zur Live-Production umzusetzen.",
+        en: "Interest in game design and generative art pipelines. Fascinated by taking complete game systems from idea to live production."
+      },
+      learnings: {
+        de: [
+          "Komplette Systeme von Idee bis Production bauen",
+          "Strukturierte Asset-Pipeline für konsistente Bildgenerierung",
+          "Balance-Messung durch Bot-Tests statt Intuition",
+          "Cloud-Infrastructure für Multiplayer-Features"
+        ],
+        en: [
+          "Building complete systems from idea to production",
+          "A structured asset pipeline for consistent image generation",
+          "Measuring balance through bot tests instead of intuition",
+          "Cloud infrastructure for multiplayer features"
+        ]
+      }
     },
     links: [
-      { label: "Live spielen", url: "https://random-summon-defense.kkevin10.workers.dev" },
-      { label: "GitHub", url: "https://github.com/WeTry420/random-summon-defense" }
+      { label: { de: "Live spielen", en: "Play live" }, url: "https://random-summon-defense.kkevin10.workers.dev" },
+      { label: { de: "GitHub", en: "GitHub" }, url: "https://github.com/WeTry420/random-summon-defense" }
     ]
   },
   {
     id: 2,
     title: "Marketplace API Tracker",
     status: "paused",
-    description: "Dashboard für einen Marktplatz mit über 400 Handelsgütern: Preishistorie in Kerzencharts, bewertete Handelschancen, Rentabilitätsvergleich von Produktionsanlagen, Handelsrechner mit Steuer und Break-even — und eine Bilderkennung, die Marktdaten direkt aus einem Screenshot ausliest.",
+    description: {
+      de: "Dashboard für einen Marktplatz mit über 400 Handelsgütern: Preishistorie in Kerzencharts, bewertete Handelschancen, Rentabilitätsvergleich von Produktionsanlagen, Handelsrechner mit Steuer und Break-even — und eine Bilderkennung, die Marktdaten direkt aus einem Screenshot ausliest.",
+      en: "A dashboard for a marketplace with 400+ tradable goods: price history in candlestick charts, scored trading opportunities, a profitability comparison of production setups, a trade calculator with tax and break-even — and image recognition that reads market data straight from a screenshot."
+    },
     tech: ["Python", "Flask", "SQLite", "REST API", "Lightweight Charts", "Tesseract.js (OCR)"],
-    badges: ["📊 Dashboard", "⚡ Real-time", "🔍 Bilderkennung"],
+    badges: {
+      de: ["📊 Dashboard", "⚡ Real-time", "🔍 Bilderkennung"],
+      en: ["📊 Dashboard", "⚡ Real-time", "🔍 Image recognition"]
+    },
     bilder: [
-      { datei: "bilder/tracker-markt.webp", text: "Marktübersicht: 444 Handelsgüter mit Kauf- und Verkaufspreis, Netto nach Gebühren und live berechneter Handelsspanne." },
-      { datei: "bilder/tracker-detail.webp", text: "Detailansicht eines Guts: Kerzenchart aus echten Handelsdaten mit Volumen darunter, umschaltbar zwischen 24 Stunden, 7 und 30 Tagen. Darunter ein Rechner, der Steuer und Break-even einrechnet und den Sofortverkauf gegen ein eigenes Verkaufsangebot stellt — inklusive Hinweis auf Wartezeit und Risiko." },
-      { datei: "bilder/tracker-orderbuch.webp", text: "Die Handelstiefe liefert die Schnittstelle nicht mit. Also fotografiert man das Menü im Spiel und die App liest die Liste per Texterkennung aus dem Bild — und erkennt selbst, ob es Kauf- oder Verkaufsaufträge sind." },
-      { datei: "bilder/tracker-farmen.webp", text: "Rentabilitätsvergleich von Produktionsanlagen: Ertrag pro Stunde zu aktuellen Preisen, Baukosten, Amortisationszeit und die Einschätzung, ob der Markt die Menge überhaupt aufnimmt." },
-      { datei: "bilder/tracker-chancen.webp", text: "Chancen-Ansicht: Gesamt-Score aus Spanne, Volumen, Nähe zum 30-Tage-Tief und Volumen-Spitzen — mit Kennzeichen, die begründen, warum ein Gut auf der Liste steht." },
-      { datei: "bilder/tracker-journal.webp", text: "Journal: offene Positionen mit laufendem Ergebnis, gebundenes Kapital, Trefferquote und die Historie abgeschlossener Geschäfte." }
+      { datei: "bilder/tracker-markt.webp", text: {
+        de: "Marktübersicht: 444 Handelsgüter mit Kauf- und Verkaufspreis, Netto nach Gebühren und live berechneter Handelsspanne.",
+        en: "Market overview: 444 goods with buy and sell price, net after fees and a live-calculated trading margin." } },
+      { datei: "bilder/tracker-detail.webp", text: {
+        de: "Detailansicht eines Guts: Kerzenchart aus echten Handelsdaten mit Volumen darunter, umschaltbar zwischen 24 Stunden, 7 und 30 Tagen. Darunter ein Rechner, der Steuer und Break-even einrechnet und den Sofortverkauf gegen ein eigenes Verkaufsangebot stellt — inklusive Hinweis auf Wartezeit und Risiko.",
+        en: "Detail view of a good: a candlestick chart from real trade data with volume below, switchable between 24 hours, 7 and 30 days. Below it a calculator that factors in tax and break-even and pits the instant sale against your own sell offer — including a note on waiting time and risk." } },
+      { datei: "bilder/tracker-orderbuch.webp", text: {
+        de: "Die Handelstiefe liefert die Schnittstelle nicht mit. Also fotografiert man das Menü im Spiel und die App liest die Liste per Texterkennung aus dem Bild — und erkennt selbst, ob es Kauf- oder Verkaufsaufträge sind.",
+        en: "The API doesn't provide market depth. So you photograph the in-game menu and the app reads the list from the image via text recognition — and figures out itself whether these are buy or sell orders." } },
+      { datei: "bilder/tracker-farmen.webp", text: {
+        de: "Rentabilitätsvergleich von Produktionsanlagen: Ertrag pro Stunde zu aktuellen Preisen, Baukosten, Amortisationszeit und die Einschätzung, ob der Markt die Menge überhaupt aufnimmt.",
+        en: "Profitability comparison of production setups: yield per hour at current prices, build cost, payback time and an estimate of whether the market can even absorb the quantity." } },
+      { datei: "bilder/tracker-chancen.webp", text: {
+        de: "Chancen-Ansicht: Gesamt-Score aus Spanne, Volumen, Nähe zum 30-Tage-Tief und Volumen-Spitzen — mit Kennzeichen, die begründen, warum ein Gut auf der Liste steht.",
+        en: "Opportunities view: an overall score from margin, volume, proximity to the 30-day low and volume spikes — with tags explaining why a good is on the list." } },
+      { datei: "bilder/tracker-journal.webp", text: {
+        de: "Journal: offene Positionen mit laufendem Ergebnis, gebundenes Kapital, Trefferquote und die Historie abgeschlossener Geschäfte.",
+        en: "Journal: open positions with running result, tied-up capital, hit rate and the history of closed trades." } }
     ],
     details: {
-      what: "Die App ruft die Marktdaten alle 15 Minuten selbst ab und schreibt jede Preisänderung mit — daraus entstehen Kerzencharts über 24 Stunden, 7 und 30 Tage. Dazu ein Bewertungssystem, das Handelschancen nach Spanne, Volumen und Nähe zum 30-Tage-Tief einstuft und die Einstufung begründet, ein Rechner mit Steuer und Break-even, ein Rentabilitätsvergleich von Produktionsanlagen samt Amortisationszeit, Merkliste und Journal. Wo die Schnittstelle keine Daten liefert — etwa bei der Handelstiefe — liest die App sie per Texterkennung aus einem Screenshot.",
-      why: "Interesse an Datenanalyse und Marktmechanik. Bewusst so gebaut, dass es mit jeder Schnittstelle funktioniert, die Preise als JSON liefert.",
-      learnings: [
-        "Wenn eine Schnittstelle etwas nicht hergibt, ist der Weg drumherum manchmal ein Screenshot: Minecraft nutzt eine Pixelschrift ohne Kantenglättung, mit der Texterkennung zunächst nichts anfangen konnte. Vierfach hochskalieren, invertieren, umranden — und typische Ziffernfehler gezielt korrigieren",
-        "Eine Zahl allein hilft niemandem. Jede Empfehlung trägt eine Begründung, warum sie auf der Liste steht",
-        "Ehrlich rechnen heißt Kosten mitrechnen: Steuer, Break-even, und der Hinweis, dass das bessere Angebot Wartezeit und das Risiko kostet, dass niemand kauft",
-        "Historie entsteht nur, wenn jemand mitschreibt — die Aussagekraft der Auswertung wächst mit jeder Laufstunde"
-      ]
+      what: {
+        de: "Die App ruft die Marktdaten alle 15 Minuten selbst ab und schreibt jede Preisänderung mit — daraus entstehen Kerzencharts über 24 Stunden, 7 und 30 Tage. Dazu ein Bewertungssystem, das Handelschancen nach Spanne, Volumen und Nähe zum 30-Tage-Tief einstuft und die Einstufung begründet, ein Rechner mit Steuer und Break-even, ein Rentabilitätsvergleich von Produktionsanlagen samt Amortisationszeit, Merkliste und Journal. Wo die Schnittstelle keine Daten liefert — etwa bei der Handelstiefe — liest die App sie per Texterkennung aus einem Screenshot.",
+        en: "The app fetches the market data itself every 15 minutes and records every price change — from that it builds candlestick charts over 24 hours, 7 and 30 days. Plus a scoring system that ranks trading opportunities by margin, volume and proximity to the 30-day low and explains the ranking, a calculator with tax and break-even, a profitability comparison of production setups including payback time, a watchlist and a journal. Where the API provides no data — such as market depth — the app reads it from a screenshot via text recognition."
+      },
+      why: {
+        de: "Interesse an Datenanalyse und Marktmechanik. Bewusst so gebaut, dass es mit jeder Schnittstelle funktioniert, die Preise als JSON liefert.",
+        en: "Interest in data analysis and market mechanics. Deliberately built to work with any API that serves prices as JSON."
+      },
+      learnings: {
+        de: [
+          "Wenn eine Schnittstelle etwas nicht hergibt, ist der Weg drumherum manchmal ein Screenshot: Minecraft nutzt eine Pixelschrift ohne Kantenglättung, mit der Texterkennung zunächst nichts anfangen konnte. Vierfach hochskalieren, invertieren, umranden — und typische Ziffernfehler gezielt korrigieren",
+          "Eine Zahl allein hilft niemandem. Jede Empfehlung trägt eine Begründung, warum sie auf der Liste steht",
+          "Ehrlich rechnen heißt Kosten mitrechnen: Steuer, Break-even, und der Hinweis, dass das bessere Angebot Wartezeit und das Risiko kostet, dass niemand kauft",
+          "Historie entsteht nur, wenn jemand mitschreibt — die Aussagekraft der Auswertung wächst mit jeder Laufstunde"
+        ],
+        en: [
+          "When an API doesn't give you something, the way around it is sometimes a screenshot: Minecraft uses a pixel font without anti-aliasing that OCR couldn't handle at first. Upscale 4×, invert, add a border — and correct typical digit errors on purpose",
+          "A number alone helps no one. Every recommendation carries a reason why it's on the list",
+          "Honest math means counting the costs: tax, break-even, and the note that the better offer costs waiting time and the risk that nobody buys",
+          "History only exists if someone records it — the analysis gets more meaningful with every hour the app runs"
+        ]
+      }
     }
   },
   {
     id: 3,
-    title: "Eigene Plugins & 3D-Assets für Minecraft",
+    title: { de: "Eigene Plugins & 3D-Assets für Minecraft", en: "Custom plugins & 3D assets for Minecraft" },
     status: "paused",
-    description: "Ein komplettes Fähigkeiten-System selbst gebaut: eigenes Java-Plugin für die Partikeleffekte, selbst modellierte 3D-Waffe, animierte Texturen und die Spiellogik dazu. Dazu Händler-NPCs, ein Level-System und ein Upgrade-System für Waffen.",
+    description: {
+      de: "Ein komplettes Fähigkeiten-System selbst gebaut: eigenes Java-Plugin für die Partikeleffekte, selbst modellierte 3D-Waffe, animierte Texturen und die Spiellogik dazu. Dazu Händler-NPCs, ein Level-System und ein Upgrade-System für Waffen.",
+      en: "Built a complete ability system myself: a custom Java plugin for the particle effects, a self-modelled 3D weapon, animated textures and the game logic to match. Plus merchant NPCs, a level system and a weapon upgrade system."
+    },
     tech: ["Java (eigenes Plugin)", "Paper 26.1.2", "Datapacks", "Skript", "Blockbench", "Resource Packs"],
-    badges: ["🔧 Eigenes Plugin", "🗡️ 3D-Modell", "⚡ Fähigkeiten-System"],
+    badges: {
+      de: ["🔧 Eigenes Plugin", "🗡️ 3D-Modell", "⚡ Fähigkeiten-System"],
+      en: ["🔧 Custom plugin", "🗡️ 3D model", "⚡ Ability system"]
+    },
     bilder: [
-      { datei: "bilder/mc-schwert.webp", text: "Die Sturmklinge mit aktiver Aura. Das Modell ist selbst gebaut: ein Katana plus zwei gekreuzte Leuchtflächen, auf denen die animierte Aura-Textur läuft." },
-      { datei: "bilder/mc-aura-texturen.webp", text: "Die Aura-Texturen, jeweils 16 Einzelbilder à 32×32 Pixel. Bewusst als Fähigkeits-Asset angelegt und nicht als Schwert-Asset — dieselbe Aura soll später auf jeder Waffe funktionieren." }
+      { datei: "bilder/mc-schwert.webp", text: {
+        de: "Die Sturmklinge mit aktiver Aura. Das Modell ist selbst gebaut: ein Katana plus zwei gekreuzte Leuchtflächen, auf denen die animierte Aura-Textur läuft.",
+        en: "The Storm Blade with its aura active. The model is self-built: a katana plus two crossed glowing planes that carry the animated aura texture." } },
+      { datei: "bilder/mc-aura-texturen.webp", text: {
+        de: "Die Aura-Texturen, jeweils 16 Einzelbilder à 32×32 Pixel. Bewusst als Fähigkeits-Asset angelegt und nicht als Schwert-Asset — dieselbe Aura soll später auf jeder Waffe funktionieren.",
+        en: "The aura textures, 16 frames each at 32×32 pixels. Deliberately built as an ability asset, not a weapon asset — the same aura should later work on any weapon." } }
     ],
     details: {
-      what: "Die Schwertaura läuft über drei sauber getrennte Schichten: Die Spiellogik im Skript kennt Mana-Kosten, Dauer und 34 Aura-Stufen. Ein selbst geschriebenes Java-Plugin zeichnet die rotierende Partikelspirale und berechnet ihre Position aus der Blickrichtung des Spielers, damit sie an der Waffenhand klebt. Die Klingen-Optik kommt aus Datapack und Resource-Pack: Ein Item-Modifier tauscht beim Zünden das Klingenmodell und entfernt es danach wieder. Drumherum: Händler-NPCs mit Menüs, ein Level- und EXP-System, ein Schmied, der Waffen von +0 auf +9 bringt, und ein Bonus-System mit würfelbaren Eigenschaften.",
-      why: "Reiz war, Spielsysteme selbst zu bauen statt fertige RPG-Plugins zusammenzustecken. Der interessanteste Teil war nicht das Schwert, sondern die Frage, wie mehrere getrennte Systeme miteinander reden, ohne sich gegenseitig kaputtzumachen.",
-      learnings: [
-        "Die Skripte reden über die Item-Beschreibung miteinander: Eine Zeile wie „Bonus-Schaden: +N“ markiert ein Item als Waffe, „Verteidigung: +N%“ als Rüstung. Ein festes, dokumentiertes Format als Schnittstelle zwischen Systemen",
-        "Effekte gehören zur Fähigkeit, nicht zum Gegenstand — sonst baut man dieselbe Arbeit bei jeder neuen Waffe noch einmal",
-        "Die Grenze des eigenen Entwurfs kennen: Der Modifier setzt ein festes Modell, ein künftiges Frostschwert würde beim Zünden optisch zum Katana. Steht so in meiner eigenen Doku, samt Weg zur Lösung",
-        "Der Server kam nie öffentlich raus — Plugin, Modell und Systeme funktionieren trotzdem auf jedem Server"
-      ]
+      what: {
+        de: "Die Schwertaura läuft über drei sauber getrennte Schichten: Die Spiellogik im Skript kennt Mana-Kosten, Dauer und 34 Aura-Stufen. Ein selbst geschriebenes Java-Plugin zeichnet die rotierende Partikelspirale und berechnet ihre Position aus der Blickrichtung des Spielers, damit sie an der Waffenhand klebt. Die Klingen-Optik kommt aus Datapack und Resource-Pack: Ein Item-Modifier tauscht beim Zünden das Klingenmodell und entfernt es danach wieder. Drumherum: Händler-NPCs mit Menüs, ein Level- und EXP-System, ein Schmied, der Waffen von +0 auf +9 bringt, und ein Bonus-System mit würfelbaren Eigenschaften.",
+        en: "The sword aura runs across three cleanly separated layers: the game logic in the script knows mana cost, duration and 34 aura tiers. A self-written Java plugin draws the rotating particle spiral and computes its position from the player's facing so it sticks to the weapon hand. The blade's look comes from a datapack and resource pack: an item modifier swaps the blade model on activation and removes it again afterwards. Around that: merchant NPCs with menus, a level and XP system, a smith that upgrades weapons from +0 to +9, and a bonus system with rollable properties."
+      },
+      why: {
+        de: "Reiz war, Spielsysteme selbst zu bauen statt fertige RPG-Plugins zusammenzustecken. Der interessanteste Teil war nicht das Schwert, sondern die Frage, wie mehrere getrennte Systeme miteinander reden, ohne sich gegenseitig kaputtzumachen.",
+        en: "The appeal was building game systems myself instead of bolting together ready-made RPG plugins. The most interesting part wasn't the sword but the question of how several separate systems talk to each other without breaking one another."
+      },
+      learnings: {
+        de: [
+          "Die Skripte reden über die Item-Beschreibung miteinander: Eine Zeile wie „Bonus-Schaden: +N“ markiert ein Item als Waffe, „Verteidigung: +N%“ als Rüstung. Ein festes, dokumentiertes Format als Schnittstelle zwischen Systemen",
+          "Effekte gehören zur Fähigkeit, nicht zum Gegenstand — sonst baut man dieselbe Arbeit bei jeder neuen Waffe noch einmal",
+          "Die Grenze des eigenen Entwurfs kennen: Der Modifier setzt ein festes Modell, ein künftiges Frostschwert würde beim Zünden optisch zum Katana. Steht so in meiner eigenen Doku, samt Weg zur Lösung",
+          "Der Server kam nie öffentlich raus — Plugin, Modell und Systeme funktionieren trotzdem auf jedem Server"
+        ],
+        en: [
+          "The scripts talk to each other through the item description: a line like “Bonus damage: +N” marks an item as a weapon, “Defense: +N%” as armor. A fixed, documented format as the interface between systems",
+          "Effects belong to the ability, not the item — otherwise you redo the same work for every new weapon",
+          "Know the limits of your own design: the modifier sets a fixed model, so a future frost sword would visually turn into the katana on activation. It's written down in my own docs, along with the way to fix it",
+          "The server never went public — the plugin, model and systems still work on any server"
+        ]
+      }
     }
   },
   {
     id: 4,
-    title: "Trading-Systeme & Strategie-Backtesting",
+    title: { de: "Trading-Systeme & Strategie-Backtesting", en: "Trading systems & strategy backtesting" },
     status: "paused",
-    description: "Zwei Anläufe: eigene Strategien auf einem bestehenden Bot-Framework entwickelt und systematisch gegen historische Daten geprüft — und ein selbst gebautes System auf eigenem Server, mit Dashboard, Marktanalyse und Watchdog. Der bleibende Ertrag ist die Methodik, nicht die Rendite.",
+    description: {
+      de: "Zwei Anläufe: eigene Strategien auf einem bestehenden Bot-Framework entwickelt und systematisch gegen historische Daten geprüft — und ein selbst gebautes System auf eigenem Server, mit Dashboard, Marktanalyse und Watchdog. Der bleibende Ertrag ist die Methodik, nicht die Rendite.",
+      en: "Two runs: developed my own strategies on an existing bot framework and tested them systematically against historical data — plus a self-built system on my own server with a dashboard, market analysis and a watchdog. The lasting value is the methodology, not the returns."
+    },
     tech: ["Python", "Binance API", "Freqtrade", "Hyperopt", "VPS", "systemd", "nginx"],
-    badges: ["⚙️ Eigene Infrastruktur", "📊 Systematisch getestet", "🔬 Methodik"],
+    badges: {
+      de: ["⚙️ Eigene Infrastruktur", "📊 Systematisch getestet", "🔬 Methodik"],
+      en: ["⚙️ Own infrastructure", "📊 Systematically tested", "🔬 Methodology"]
+    },
     bilder: [
-      { datei: "bilder/trading-dashboard.webp", text: "Dashboard des selbst gebauten Systems auf dem eigenen Server: Marktanalyse, zwei Strategien im direkten Vergleich mit getrennten Kennzahlen, automatische Regime-Erkennung und die Ergebnisse der Walk-Forward-Prüfung." }
+      { datei: "bilder/trading-dashboard.webp", text: {
+        de: "Dashboard des selbst gebauten Systems auf dem eigenen Server: Marktanalyse, zwei Strategien im direkten Vergleich mit getrennten Kennzahlen, automatische Regime-Erkennung und die Ergebnisse der Walk-Forward-Prüfung.",
+        en: "Dashboard of the self-built system on my own server: market analysis, two strategies compared directly with separate metrics, automatic regime detection and the results of walk-forward testing." } }
     ],
     details: {
-      what: "Auf der Strategie-Seite: Regelwerke für Ein- und Ausstiege selbst entworfen (RSI, Bollinger Bands, EMA200), die Parameter über eine automatisierte Suche durchprobiert statt sie zu raten, und gegen echte historische Kursdaten mit Gebühren bewertet. Auf der Betriebs-Seite: ein eigenes System auf gemietetem Server, das im Takt läuft, zwei Strategien parallel vergleicht und über einen Watchdog bei starken Kursbewegungen sofort aufwacht — dazu ein abgesichertes Dashboard.",
-      why: "Die Frage dahinter war nicht „wie werde ich reich“, sondern ob verbreitete Indikator-Regeln einer systematischen Prüfung standhalten und wie man so ein System überhaupt zuverlässig betreibt. Die ehrliche Antwort auf beides ist mehr wert als jedes Backtest-Ergebnis.",
-      learnings: [
-        "Parameter-Optimierung findet zuverlässig Einstellungen, die auf der Vergangenheit glänzen und in der Zukunft versagen — Überanpassung ist der Normalfall, nicht die Ausnahme",
-        "Ein Backtest ohne Gebühren, Slippage und Ausführungsverzögerung ist eine Erzählung, kein Test. Aussagekraft entsteht erst auf Daten, die die Optimierung nie gesehen hat",
-        "Ohne Kapital und bezahlte Datenquellen bleibt der Vorsprung gegenüber großen Häusern gering — deshalb bewusst abgebrochen statt weiter Zeit hineinzustecken",
-        "Dieselbe Denkweise steckt heute in der Balance-Messung meines Spiels: nicht dem Bauchgefühl glauben, sondern gegen echte Durchläufe prüfen"
-      ]
+      what: {
+        de: "Auf der Strategie-Seite: Regelwerke für Ein- und Ausstiege selbst entworfen (RSI, Bollinger Bands, EMA200), die Parameter über eine automatisierte Suche durchprobiert statt sie zu raten, und gegen echte historische Kursdaten mit Gebühren bewertet. Auf der Betriebs-Seite: ein eigenes System auf gemietetem Server, das im Takt läuft, zwei Strategien parallel vergleicht und über einen Watchdog bei starken Kursbewegungen sofort aufwacht — dazu ein abgesichertes Dashboard.",
+        en: "On the strategy side: designed entry and exit rules myself (RSI, Bollinger Bands, EMA200), searched the parameters automatically instead of guessing them, and evaluated against real historical price data with fees. On the operations side: my own system on a rented server that runs on a schedule, compares two strategies in parallel and wakes up instantly via a watchdog on strong price moves — plus a secured dashboard."
+      },
+      why: {
+        de: "Die Frage dahinter war nicht „wie werde ich reich“, sondern ob verbreitete Indikator-Regeln einer systematischen Prüfung standhalten und wie man so ein System überhaupt zuverlässig betreibt. Die ehrliche Antwort auf beides ist mehr wert als jedes Backtest-Ergebnis.",
+        en: "The question behind it wasn't “how do I get rich” but whether common indicator rules hold up under systematic testing and how you even run such a system reliably. The honest answer to both is worth more than any backtest result."
+      },
+      learnings: {
+        de: [
+          "Parameter-Optimierung findet zuverlässig Einstellungen, die auf der Vergangenheit glänzen und in der Zukunft versagen — Überanpassung ist der Normalfall, nicht die Ausnahme",
+          "Ein Backtest ohne Gebühren, Slippage und Ausführungsverzögerung ist eine Erzählung, kein Test. Aussagekraft entsteht erst auf Daten, die die Optimierung nie gesehen hat",
+          "Ohne Kapital und bezahlte Datenquellen bleibt der Vorsprung gegenüber großen Häusern gering — deshalb bewusst abgebrochen statt weiter Zeit hineinzustecken",
+          "Dieselbe Denkweise steckt heute in der Balance-Messung meines Spiels: nicht dem Bauchgefühl glauben, sondern gegen echte Durchläufe prüfen"
+        ],
+        en: [
+          "Parameter optimization reliably finds settings that shine on the past and fail in the future — overfitting is the norm, not the exception",
+          "A backtest without fees, slippage and execution delay is a story, not a test. It only means something on data the optimization never saw",
+          "Without capital and paid data sources the edge over big firms stays small — so I stopped deliberately instead of sinking more time in",
+          "The same mindset now sits in my game's balance measurement: don't trust the gut, test against real runs"
+        ]
+      }
     }
   },
   {
     id: 6,
-    title: "Automatisierte Video-Pipeline",
+    title: { de: "Automatisierte Video-Pipeline", en: "Automated video pipeline" },
     status: "paused",
-    description: "Ein n8n-Workflow, der Kurzvideos vom Thema bis zum fertigen Post durchproduziert: Idee ziehen, Skript per KI schreiben, Material besorgen, rendern lassen, freigeben, auf allen Plattformen veröffentlichen.",
+    description: {
+      de: "Ein n8n-Workflow, der Kurzvideos vom Thema bis zum fertigen Post durchproduziert: Idee ziehen, Skript per KI schreiben, Material besorgen, rendern lassen, freigeben, auf allen Plattformen veröffentlichen.",
+      en: "An n8n workflow that produces short videos end to end, from topic to finished post: pull an idea, write the script via AI, fetch material, have it rendered, approve, publish across all platforms."
+    },
     tech: ["n8n", "JSON2Video", "Claude API", "Pexels API", "Telegram", "REST APIs"],
-    badges: ["🔄 Automatisiert", "🔗 20 Schritte"],
+    badges: {
+      de: ["🔄 Automatisiert", "🔗 20 Schritte"],
+      en: ["🔄 Automated", "🔗 20 steps"]
+    },
     bilder: [
-      { datei: "bilder/pipeline-teil1.webp", text: "Erste Hälfte: täglicher Start, nächste Idee aus der Datenbank ziehen und als „in Produktion“ sperren, Skript generieren lassen, B-Roll besorgen und Lizenzen protokollieren, Render-Auftrag zusammenbauen und abschicken." },
-      { datei: "bilder/pipeline-teil2.webp", text: "Zweite Hälfte: auf den Render warten, Vorschau verschicken, Freigabe abwarten — erst danach wird auf allen Plattformen gepostet und der Eintrag als erledigt markiert. Bei Ablehnung endet der Lauf." }
+      { datei: "bilder/pipeline-teil1.webp", text: {
+        de: "Erste Hälfte: täglicher Start, nächste Idee aus der Datenbank ziehen und als „in Produktion“ sperren, Skript generieren lassen, B-Roll besorgen und Lizenzen protokollieren, Render-Auftrag zusammenbauen und abschicken.",
+        en: "First half: daily start, pull the next idea from the database and lock it as “in production”, generate the script, fetch B-roll and log the licenses, assemble the render job and send it off." } },
+      { datei: "bilder/pipeline-teil2.webp", text: {
+        de: "Zweite Hälfte: auf den Render warten, Vorschau verschicken, Freigabe abwarten — erst danach wird auf allen Plattformen gepostet und der Eintrag als erledigt markiert. Bei Ablehnung endet der Lauf.",
+        en: "Second half: wait for the render, send a preview, wait for approval — only then is it posted across all platforms and the entry marked done. On rejection the run ends." } }
     ],
     details: {
-      what: "Durchgehender Workflow mit rund 20 Schritten in n8n. Themen liegen in einer Datenbank und werden beim Start gesperrt, damit kein Thema doppelt läuft. Das Skript entsteht per KI, Bildmaterial wird über eine Stock-API geholt und die Lizenz mitprotokolliert. Der Render läuft extern, der Workflow wartet und prüft den Status in einer Schleife. Vor dem Posten geht eine Vorschau raus und es wird auf eine ausdrückliche Freigabe gewartet.",
-      why: "Interesse an Automatisierung: Wie weit kommt man, wenn man einen kompletten Produktionsablauf einmal sauber verdrahtet? Der Freigabe-Schritt ist bewusst drin — vollautomatisch veröffentlichen ohne Kontrolle war nicht das Ziel.",
-      learnings: [
-        "Lange Abläufe brauchen Sperren, sonst laufen Themen doppelt",
-        "Auf externe Renderer wartet man mit Schleife und Statusabfrage, nicht mit festen Wartezeiten",
-        "Ein Freigabe-Schritt vor dem Veröffentlichen ist die Mühe wert",
-        "Lizenzen von Stock-Material gehören mitprotokolliert"
-      ]
+      what: {
+        de: "Durchgehender Workflow mit rund 20 Schritten in n8n. Themen liegen in einer Datenbank und werden beim Start gesperrt, damit kein Thema doppelt läuft. Das Skript entsteht per KI, Bildmaterial wird über eine Stock-API geholt und die Lizenz mitprotokolliert. Der Render läuft extern, der Workflow wartet und prüft den Status in einer Schleife. Vor dem Posten geht eine Vorschau raus und es wird auf eine ausdrückliche Freigabe gewartet.",
+        en: "A continuous workflow with about 20 steps in n8n. Topics sit in a database and get locked on start so no topic runs twice. The script is written by AI, footage is pulled from a stock API and the license logged. The render runs externally; the workflow waits and polls the status in a loop. Before posting, a preview goes out and it waits for an explicit approval."
+      },
+      why: {
+        de: "Interesse an Automatisierung: Wie weit kommt man, wenn man einen kompletten Produktionsablauf einmal sauber verdrahtet? Der Freigabe-Schritt ist bewusst drin — vollautomatisch veröffentlichen ohne Kontrolle war nicht das Ziel.",
+        en: "Interest in automation: how far do you get when you wire up a full production flow cleanly once? The approval step is deliberate — publishing fully automatically without control wasn't the goal."
+      },
+      learnings: {
+        de: [
+          "Lange Abläufe brauchen Sperren, sonst laufen Themen doppelt",
+          "Auf externe Renderer wartet man mit Schleife und Statusabfrage, nicht mit festen Wartezeiten",
+          "Ein Freigabe-Schritt vor dem Veröffentlichen ist die Mühe wert",
+          "Lizenzen von Stock-Material gehören mitprotokolliert"
+        ],
+        en: [
+          "Long flows need locks, otherwise topics run twice",
+          "You wait on external renderers with a loop and status polling, not with fixed wait times",
+          "An approval step before publishing is worth the effort",
+          "Stock-material licenses belong in the log"
+        ]
+      }
     }
   },
   {
     id: 7,
-    title: "KI-Videos mit eigenem Stil",
+    title: { de: "KI-Videos mit eigenem Stil", en: "AI videos with a distinct style" },
     status: "paused",
-    description: "Kurzvideos zu Finanzthemen mit einem selbst ausgedachten Look: Chart-Kerzen als lebendige Figuren. Charakterdesign, Bildsprache und Schnitt gezielt selbst gestaltet statt Vorlagen zu verwenden.",
+    description: {
+      de: "Kurzvideos zu Finanzthemen mit einem selbst ausgedachten Look: Chart-Kerzen als lebendige Figuren. Charakterdesign, Bildsprache und Schnitt gezielt selbst gestaltet statt Vorlagen zu verwenden.",
+      en: "Short videos on finance topics with a look of my own: chart candles as living characters. Character design, visual language and editing shaped deliberately instead of using templates."
+    },
     tech: ["Bildgenerierung", "Charakterdesign", "FFmpeg", "KI-Voice", "Asset Versioning"],
-    badges: ["🎨 Eigener Stil", "🎬 Kurzformat"],
+    badges: {
+      de: ["🎨 Eigener Stil", "🎬 Kurzformat"],
+      en: ["🎨 Own style", "🎬 Short-form"]
+    },
     bilder: [
-      { datei: "bilder/kerze-charakter.webp", text: "Der Bullenmarkt als Figur: grüne Kerze mit Muskeln vor der Börsenkulisse, im Hintergrund laufende Kurse. Charakterdesign für Videos über steigende Märkte." }
+      { datei: "bilder/kerze-charakter.webp", text: {
+        de: "Der Bullenmarkt als Figur: grüne Kerze mit Muskeln vor der Börsenkulisse, im Hintergrund laufende Kurse. Charakterdesign für Videos über steigende Märkte.",
+        en: "The bull market as a character: a green candle with muscles in front of a trading-floor backdrop, live prices behind it. Character design for videos about rising markets." } }
     ],
     details: {
-      what: "Eine eigene Bildsprache für Marktbewegungen: Chart-Kerzen werden zu Figuren mit Charakter. Der Entwurf entstand selbst, die Umsetzung über iterative Bildgenerierung — so lange nachgeschärft, bis Haltung, Farbwelt und Umgebung zusammenpassen. Daraus geschnittene Kurzvideos im Hochformat.",
-      why: "Der Unterschied zur automatischen Pipeline: Hier ging es nicht um Menge, sondern um einen eigenen Look. Generische KI-Videos sehen alle gleich aus — eine eigene Figur macht Inhalte wiedererkennbar.",
-      learnings: [
-        "Eine Figur über viele Generationen hinweg konsistent halten ist die eigentliche Arbeit, nicht das erste hübsche Bild",
-        "Ein simples Gestaltungsmittel — ein Gesicht — vermittelt eine Marktlage schneller als jede Erklärung",
-        "Handgemacht und automatisiert sind zwei verschiedene Disziplinen",
-        "Asset-Versionierung ist bei generierten Bildern Pflicht, sonst findet man den guten Stand nie wieder"
-      ]
+      what: {
+        de: "Eine eigene Bildsprache für Marktbewegungen: Chart-Kerzen werden zu Figuren mit Charakter. Der Entwurf entstand selbst, die Umsetzung über iterative Bildgenerierung — so lange nachgeschärft, bis Haltung, Farbwelt und Umgebung zusammenpassen. Daraus geschnittene Kurzvideos im Hochformat.",
+        en: "A visual language of my own for market moves: chart candles become characters with personality. The concept was mine, the execution through iterative image generation — refined until posture, palette and setting fit together. Cut into vertical short videos from there."
+      },
+      why: {
+        de: "Der Unterschied zur automatischen Pipeline: Hier ging es nicht um Menge, sondern um einen eigenen Look. Generische KI-Videos sehen alle gleich aus — eine eigene Figur macht Inhalte wiedererkennbar.",
+        en: "The difference from the automated pipeline: this wasn't about volume but about a distinct look. Generic AI videos all look the same — a character of your own makes content recognizable."
+      },
+      learnings: {
+        de: [
+          "Eine Figur über viele Generationen hinweg konsistent halten ist die eigentliche Arbeit, nicht das erste hübsche Bild",
+          "Ein simples Gestaltungsmittel — ein Gesicht — vermittelt eine Marktlage schneller als jede Erklärung",
+          "Handgemacht und automatisiert sind zwei verschiedene Disziplinen",
+          "Asset-Versionierung ist bei generierten Bildern Pflicht, sonst findet man den guten Stand nie wieder"
+        ],
+        en: [
+          "Keeping a character consistent across many generations is the real work, not the first pretty image",
+          "One simple device — a face — conveys a market situation faster than any explanation",
+          "Handmade and automated are two different disciplines",
+          "Asset versioning is mandatory with generated images, or you never find the good version again"
+        ]
+      }
     }
   }
 ];
@@ -1385,7 +1661,11 @@ const modal = document.getElementById('modal');
 const modalContent = document.getElementById('modalContent');
 const modalClose = document.getElementById('modalClose');
 
-function renderProjects(filter = 'all') {
+let currentFilter = 'all';
+let currentModalId = null;
+
+function renderProjects(filter = currentFilter) {
+  currentFilter = filter;
   projectsGrid.innerHTML = '';
 
   const filtered = filter === 'all'
@@ -1397,25 +1677,26 @@ function renderProjects(filter = 'all') {
     card.className = `project-card`;
 
     const statusClass = project.status === 'active' ? 'active' : 'paused';
-    const statusText = project.status === 'active' ? '● AKTIV' : '⊘ PAUSIERT';
+    const statusText = project.status === 'active' ? t('statusActive') : t('statusPaused');
     const pulseClass = project.status === 'active' ? 'pulse' : '';
+    const title = L(project.title);
 
     // Hauptaktion hervorheben: erster Link, sonst der Details-Button
     const hasLinks = Boolean(project.links && project.links.length);
 
     const linksHTML = hasLinks
       ? project.links.map((link, i) =>
-          `<a href="${link.url}" target="_blank" rel="noopener" class="project-link${i === 0 ? ' primary' : ''}">${link.label}</a>`
+          `<a href="${link.url}" target="_blank" rel="noopener" class="project-link${i === 0 ? ' primary' : ''}">${L(link.label)}</a>`
         ).join('')
       : '';
 
-    const badgesHTML = project.badges
-      ? project.badges.map(badge => `<span class="project-badge">${badge}</span>`).join('')
+    const badgesHTML = L(project.badges)
+      ? L(project.badges).map(badge => `<span class="project-badge">${badge}</span>`).join('')
       : '';
 
     // Erstes Bild als Vorschau auf der Karte
     const bildHTML = project.bilder && project.bilder.length
-      ? `<div class="card-bild"><img src="${project.bilder[0].datei}" alt="${project.title}" loading="lazy" width="1280" height="800"></div>`
+      ? `<div class="card-bild"><img src="${project.bilder[0].datei}" alt="${title}" loading="lazy" width="1280" height="800"></div>`
       : '';
 
     card.innerHTML = `
@@ -1425,14 +1706,14 @@ function renderProjects(filter = 'all') {
         <span class="status-dot ${pulseClass}"></span>
         ${statusText}
       </div>
-      <h3 class="project-title">${project.title}</h3>
-      <p class="project-desc">${project.description}</p>
+      <h3 class="project-title">${title}</h3>
+      <p class="project-desc">${L(project.description)}</p>
       <div class="tech-stack">
-        ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+        ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
       </div>
       <div class="project-links">
         ${linksHTML}
-        <button class="project-link${hasLinks ? '' : ' primary'}" onclick="openModal(${project.id})">Details</button>
+        <button class="project-link${hasLinks ? '' : ' primary'}" onclick="openModal(${project.id})">${t('btnDetails')}</button>
       </div>
     `;
 
@@ -1443,9 +1724,10 @@ function renderProjects(filter = 'all') {
 function openModal(projectId) {
   const project = projects.find(p => p.id === projectId);
   if (!project) return;
+  currentModalId = projectId;
 
   const statusClass = project.status === 'active' ? 'active' : 'paused';
-  const statusText = project.status === 'active' ? '● AKTIV' : '⊘ PAUSIERT';
+  const statusText = project.status === 'active' ? t('statusActive') : t('statusPaused');
 
   modalContent.innerHTML = `
     <div style="margin-bottom: 10px;">
@@ -1454,19 +1736,19 @@ function openModal(projectId) {
         ${statusText}
       </span>
     </div>
-    <h2>${project.title}</h2>
+    <h2>${L(project.title)}</h2>
 
     ${project.bilder && project.bilder.length ? `
       <div class="modal-section">
-        <h3>Einblicke</h3>
-        <p class="galerie-hinweis">Klick auf ein Bild öffnet es in voller Grösse.</p>
+        <h3>${t('mInsights')}</h3>
+        <p class="galerie-hinweis">${t('mGalleryHint')}</p>
         <div class="modal-galerie">
           ${project.bilder.map(b => `
             <figure>
               <a href="${b.datei}" target="_blank" rel="noopener">
-                <img src="${b.datei}" alt="${b.text}" loading="lazy">
+                <img src="${b.datei}" alt="${L(b.text)}" loading="lazy">
               </a>
-              <figcaption>${b.text}</figcaption>
+              <figcaption>${L(b.text)}</figcaption>
             </figure>
           `).join('')}
         </div>
@@ -1474,35 +1756,35 @@ function openModal(projectId) {
     ` : ''}
 
     <div class="modal-section">
-      <h3>Übersicht</h3>
-      <p>${project.details.what}</p>
+      <h3>${t('mOverview')}</h3>
+      <p>${L(project.details.what)}</p>
     </div>
 
     <div class="modal-section">
-      <h3>Motivation</h3>
-      <p>${project.details.why}</p>
+      <h3>${t('mMotivation')}</h3>
+      <p>${L(project.details.why)}</p>
     </div>
 
     <div class="modal-section">
-      <h3>Learnings & Erkenntnisse</h3>
+      <h3>${t('mLearnings')}</h3>
       <ul>
-        ${project.details.learnings.map(l => `<li>${l}</li>`).join('')}
+        ${L(project.details.learnings).map(l => `<li>${l}</li>`).join('')}
       </ul>
     </div>
 
     <div class="modal-section">
-      <h3>Tech-Stack</h3>
+      <h3>${t('mTech')}</h3>
       <div class="tech-stack">
-        ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+        ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
       </div>
     </div>
 
     ${project.links ? `
       <div class="modal-section">
-        <h3>Links</h3>
+        <h3>${t('mLinks')}</h3>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           ${project.links.map(link => `
-            <a href="${link.url}" target="_blank" class="project-link">${link.label}</a>
+            <a href="${link.url}" target="_blank" class="project-link">${L(link.label)}</a>
           `).join('')}
         </div>
       </div>
@@ -1514,6 +1796,7 @@ function openModal(projectId) {
 
 function closeModal() {
   modalOverlay.classList.remove('active');
+  currentModalId = null;
 }
 
 modalClose.addEventListener('click', closeModal);
@@ -1536,6 +1819,37 @@ filterBtns.forEach(btn => {
   });
 });
 
+// ---- Sprache anwenden & umschalten ----
+const langToggle = document.getElementById('langToggle');
+
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.getAttribute('data-i18n'));
+    if (v != null) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t(el.getAttribute('data-i18n-html'));
+    if (v != null) el.innerHTML = v;
+  });
+  html.setAttribute('lang', LANG);
+  langToggle.textContent = LANG === 'de' ? 'EN' : 'DE';
+  langToggle.setAttribute('aria-label', LANG === 'de' ? 'Switch to English' : 'Zu Deutsch wechseln');
+  // Menü-Beschriftung an die Sprache anpassen
+  const offen = navSchalter.getAttribute('aria-expanded') === 'true';
+  navSchalter.setAttribute('aria-label', offen ? t('menuClose') : t('menuOpen'));
+}
+
+function setLang(lang) {
+  LANG = lang;
+  saveLang(lang);
+  applyI18n();
+  renderProjects();
+  if (currentModalId !== null) openModal(currentModalId); // offenes Fenster neu aufbauen
+}
+
+langToggle.addEventListener('click', () => setLang(LANG === 'de' ? 'en' : 'de'));
+
+applyI18n();
 renderProjects();
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
