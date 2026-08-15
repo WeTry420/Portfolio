@@ -1438,22 +1438,25 @@ const projects = [
     id: 2,
     title: "Marketplace API Tracker",
     status: "paused",
-    description: "Python-Dashboard für Echtzeitüberwachung von Marktplatz-Daten mit Preis-Historisierung, Flip-Margen-Berechnung und Trading-Rechner.",
-    tech: ["Python", "Flask", "SQLite", "REST API", "SVG-Sparklines", "Real-time Data"],
-    badges: ["📊 Dashboard", "⚡ Real-time"],
+    description: "Dashboard für einen Marktplatz mit über 400 Handelsgütern: Preishistorie in Kerzencharts, bewertete Handelschancen, Rentabilitätsvergleich von Produktionsanlagen, Handelsrechner mit Steuer und Break-even — und eine Bilderkennung, die Marktdaten direkt aus einem Screenshot ausliest.",
+    tech: ["Python", "Flask", "SQLite", "REST API", "Lightweight Charts", "Tesseract.js (OCR)"],
+    badges: ["📊 Dashboard", "⚡ Real-time", "🔍 Bilderkennung"],
     bilder: [
-      { datei: "bilder/tracker-markt.webp", text: "Marktübersicht: 444 Items mit Sofortkauf, Sofortverkauf, Netto nach Gebühren und live berechneter Flip-Marge." },
-      { datei: "bilder/tracker-chancen.webp", text: "Chancen-Ansicht: Gesamt-Score aus Marge, Volumen, Nähe zum 30-Tage-Tief und Volumen-Spikes — mit Badges, die begründen, warum ein Item auf der Liste steht." },
-      { datei: "bilder/tracker-journal.webp", text: "Journal: offene Positionen mit Live-P&L, gebundenes Kapital, Win-Rate und Historie abgeschlossener Trades." }
+      { datei: "bilder/tracker-markt.webp", text: "Marktübersicht: 444 Handelsgüter mit Kauf- und Verkaufspreis, Netto nach Gebühren und live berechneter Handelsspanne." },
+      { datei: "bilder/tracker-detail.webp", text: "Detailansicht eines Guts: Kerzenchart aus echten Handelsdaten mit Volumen darunter, umschaltbar zwischen 24 Stunden, 7 und 30 Tagen. Darunter ein Rechner, der Steuer und Break-even einrechnet und den Sofortverkauf gegen ein eigenes Verkaufsangebot stellt — inklusive Hinweis auf Wartezeit und Risiko." },
+      { datei: "bilder/tracker-orderbuch.webp", text: "Die Handelstiefe liefert die Schnittstelle nicht mit. Also fotografiert man das Menü im Spiel und die App liest die Liste per Texterkennung aus dem Bild — und erkennt selbst, ob es Kauf- oder Verkaufsaufträge sind." },
+      { datei: "bilder/tracker-farmen.webp", text: "Rentabilitätsvergleich von Produktionsanlagen: Ertrag pro Stunde zu aktuellen Preisen, Baukosten, Amortisationszeit und die Einschätzung, ob der Markt die Menge überhaupt aufnimmt." },
+      { datei: "bilder/tracker-chancen.webp", text: "Chancen-Ansicht: Gesamt-Score aus Spanne, Volumen, Nähe zum 30-Tage-Tief und Volumen-Spitzen — mit Kennzeichen, die begründen, warum ein Gut auf der Liste steht." },
+      { datei: "bilder/tracker-journal.webp", text: "Journal: offene Positionen mit laufendem Ergebnis, gebundenes Kapital, Trefferquote und die Historie abgeschlossener Geschäfte." }
     ],
     details: {
-      what: "Lokales Dashboard, das die Marktdaten alle 15 Minuten selbst abruft und jede Preisänderung mitschreibt. Daraus entstehen Vergleiche über 24 Stunden, 7 und 30 Tage, eine Bewertung nach Nähe zum 30-Tage-Tief, laufende Flip-Margen nach Gebühren, Watchlist und ein Journal mit offenen Positionen und Win-Rate. Die Kursverläufe sind als SVG-Linie selbst gezeichnet, ohne Diagramm-Bibliothek.",
-      why: "Interesse an Datenanalyse und Markt-Integration. Bewusst generalisiert für beliebige APIs, nicht nur spezifisches System.",
+      what: "Die App ruft die Marktdaten alle 15 Minuten selbst ab und schreibt jede Preisänderung mit — daraus entstehen Kerzencharts über 24 Stunden, 7 und 30 Tage. Dazu ein Bewertungssystem, das Handelschancen nach Spanne, Volumen und Nähe zum 30-Tage-Tief einstuft und die Einstufung begründet, ein Rechner mit Steuer und Break-even, ein Rentabilitätsvergleich von Produktionsanlagen samt Amortisationszeit, Merkliste und Journal. Wo die Schnittstelle keine Daten liefert — etwa bei der Handelstiefe — liest die App sie per Texterkennung aus einem Screenshot.",
+      why: "Interesse an Datenanalyse und Marktmechanik. Bewusst so gebaut, dass es mit jeder Schnittstelle funktioniert, die Preise als JSON liefert.",
       learnings: [
-        "Echtzeit-Datenverarbeitung und Historisierung",
-        "API-Integration und Fehlerbehandlung",
-        "User-Interface für Finanz-Dashboards",
-        "SQL-Queries für Datenabfragen optimieren"
+        "Wenn eine Schnittstelle etwas nicht hergibt, ist der Weg drumherum manchmal ein Screenshot: Minecraft nutzt eine Pixelschrift ohne Kantenglättung, mit der Texterkennung zunächst nichts anfangen konnte. Vierfach hochskalieren, invertieren, umranden — und typische Ziffernfehler gezielt korrigieren",
+        "Eine Zahl allein hilft niemandem. Jede Empfehlung trägt eine Begründung, warum sie auf der Liste steht",
+        "Ehrlich rechnen heißt Kosten mitrechnen: Steuer, Break-even, und der Hinweis, dass das bessere Angebot Wartezeit und das Risiko kostet, dass niemand kauft",
+        "Historie entsteht nur, wenn jemand mitschreibt — die Aussagekraft der Auswertung wächst mit jeder Laufstunde"
       ]
     }
   },
